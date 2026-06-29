@@ -1,11 +1,12 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="row justify-content-center align-items-center mt-5 fade-in">
     <div class="col-md-6 col-lg-5">
         <div class="card-custom">
             <div class="card-custom-header bg-sunrise-gradient text-white text-center p-4">
-                {% include 'layouts/logo_svg.html' with class='nav-logo mx-auto mb-2' %}
+                <img src="{% static 'img/logo_cisa.jpg' %}" alt="Logo CISA" class="nav-logo-img mx-auto mb-2 d-block" style="width: 50px; height: 50px;">
                 <h3 class="mb-0 font-serif">CISA Argentina</h3>
                 <p class="mb-0 text-white-50 small mt-1">Panel de Control & Gestión</p>
             </div>

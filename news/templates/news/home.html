@@ -1,6 +1,8 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
 {% block content %}
+
 <!-- Hero Section -->
 <div class="hero-section fade-in shadow-sm">
     <div class="row align-items-center">
@@ -16,10 +18,11 @@
             </div>
         </div>
         <div class="col-lg-5 mt-4 mt-lg-0 text-center">
-            {% include 'layouts/logo_svg.html' with class='hero-logo' %}
+            <img src="{% static 'img/logo_cisa.jpg' %}" alt="Logo CISA" class="hero-logo-img">
         </div>
     </div>
 </div>
+
 
 <div class="row g-4" id="historia">
     <!-- Historia de la Institución -->
