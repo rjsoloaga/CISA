@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: cisa_db
+      MYSQL_USER: javier_admin
+      MYSQL_PASSWORD: Ciro2014
+      MYSQL_ROOT_PASSWORD: Ciro2014
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_NAME: cisa_db
+      DB_USER: javier_admin
+      DB_PASSWORD: Ciro2014
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:

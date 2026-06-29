@@ -1,0 +1,242 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="row fade-in mb-4">
+    <div class="col-12 text-center">
+        <span class="badge bg-sunrise-gradient text-white mb-2 px-3 py-2 rounded-pill">Nuestras Sedes</span>
+        <h1 class="display-5 fw-extrabold text-sunrise-gradient font-serif">Institutos de Capacitación CISA</h1>
+        <p class="text-secondary mx-auto" style="max-width: 600px;">
+            Espacios dedicados al aprendizaje de oficios, la inserción laboral y el crecimiento colectivo.
+        </p>
+        <hr class="opacity-10 w-25 mx-auto">
+    </div>
+</div>
+
+<!-- Filter Controls -->
+<div class="row mb-5 fade-in">
+    <div class="col-12 text-center">
+        <div class="filter-btn-group shadow-sm">
+            <button class="filter-btn active" onclick="filterInstitutes('all', this)">
+                🌟 Todos
+            </button>
+            <button class="filter-btn" onclick="filterInstitutes('F', this)">
+                🌸 Rama Femenina
+            </button>
+            <button class="filter-btn" onclick="filterInstitutes('M', this)">
+                🪵 Rama Masculina
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Institutes Cards Grid -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 fade-in" id="institutes-grid">
+    
+    <!-- Institute 1 -->
+    <div class="col institute-card-item" data-rama="F">
+        <div class="card-custom h-100 d-flex flex-column">
+            <div class="card-custom-header text-center py-4 bg-light">
+                <!-- Spool/Textile SVG Logo -->
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                    <circle cx="30" cy="30" r="28" fill="#fff5f7" stroke="#ff5b7f" stroke-width="2"/>
+                    <rect x="25" y="15" width="10" height="30" rx="2" fill="#ff5b7f"/>
+                    <path d="M22 20H38 M22 25H38 M22 30H38 M22 35H38 M22 40H38" stroke="#ff8b65" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="30" cy="12" r="3" fill="#ffbe53"/>
+                    <circle cx="30" cy="48" r="3" fill="#ffbe53"/>
+                </svg>
+            </div>
+            <div class="card-body p-4 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0 text-dark">Instituto "Alborada"</h5>
+                    <span class="badge badge-rama-f rounded-pill px-2.5 py-1 small">Femenina</span>
+                </div>
+                <p class="text-secondary small mb-3">Diseño de Indumentaria, Confección Textil y Bordado.</p>
+                <p class="text-muted small lh-relaxed">
+                    Un espacio pensado para potenciar la creatividad y autonomía de las mujeres a través del arte textil, el patronaje y el emprendedurismo de moda.
+                </p>
+                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="text-secondary small">📍 Sede Sur</span>
+                    <a href="{% url 'news:contacto' %}" class="btn btn-outline-sunrise btn-sm">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Institute 2 -->
+    <div class="col institute-card-item" data-rama="M">
+        <div class="card-custom h-100 d-flex flex-column">
+            <div class="card-custom-header text-center py-4 bg-light">
+                <!-- Hammer/Wood SVG Logo -->
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                    <circle cx="30" cy="30" r="28" fill="#fffcfb" stroke="#ff8b65" stroke-width="2"/>
+                    <path d="M22 38L38 22" stroke="#231225" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M35 19L41 25" stroke="#231225" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M18 42L22 38" stroke="#ff8b65" stroke-width="4" stroke-linecap="round"/>
+                    <rect x="22" y="24" width="8" height="12" rx="1" transform="rotate(45 22 24)" fill="#ffbe53"/>
+                </svg>
+            </div>
+            <div class="card-body p-4 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0 text-dark">Carpintería "El Taller"</h5>
+                    <span class="badge badge-rama-m rounded-pill px-2.5 py-1 small">Masculina</span>
+                </div>
+                <p class="text-secondary small mb-3">Mueblería, Restauración e Introducción a la Construcción.</p>
+                <p class="text-muted small lh-relaxed">
+                    Formación integral en el manejo de maderas, técnicas de ensamble y diseño de mobiliario, promoviendo el trabajo en equipo y la seguridad en el taller.
+                </p>
+                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="text-secondary small">📍 Sede Norte</span>
+                    <a href="{% url 'news:contacto' %}" class="btn btn-outline-sunrise btn-sm">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Institute 3 -->
+    <div class="col institute-card-item" data-rama="F">
+        <div class="card-custom h-100 d-flex flex-column">
+            <div class="card-custom-header text-center py-4 bg-light">
+                <!-- Baking/Kneading SVG Logo -->
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                    <circle cx="30" cy="30" r="28" fill="#fff5f7" stroke="#ff5b7f" stroke-width="2"/>
+                    <path d="M15 32C18 35 24 35 27 32C30 29 36 29 39 32C42 35 48 35 51 32" stroke="#ff5b7f" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M22 25C25 21 35 21 38 25" stroke="#ffbe53" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="25" cy="20" r="1.5" fill="#ff8b65"/>
+                    <circle cx="35" cy="20" r="1.5" fill="#ff8b65"/>
+                </svg>
+            </div>
+            <div class="card-body p-4 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0 text-dark">Panadería "Manos Unidas"</h5>
+                    <span class="badge badge-rama-f rounded-pill px-2.5 py-1 small">Femenina</span>
+                </div>
+                <p class="text-secondary small mb-3">Panadería, Pastelería y Cocina Comunitaria.</p>
+                <p class="text-muted small lh-relaxed">
+                    Amasando en equipo para brindar herramientas de autoabastecimiento y emprendimiento. Las participantes aprenden elaboración de panificados y gestión higiénica.
+                </p>
+                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="text-secondary small">📍 Sede Central</span>
+                    <a href="{% url 'news:contacto' %}" class="btn btn-outline-sunrise btn-sm">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Institute 4 -->
+    <div class="col institute-card-item" data-rama="M">
+        <div class="card-custom h-100 d-flex flex-column">
+            <div class="card-custom-header text-center py-4 bg-light">
+                <!-- Baking/Kneading SVG Logo 2 -->
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                    <circle cx="30" cy="30" r="28" fill="#fffcfb" stroke="#ff8b65" stroke-width="2"/>
+                    <path d="M15 32C18 35 24 35 27 32C30 29 36 29 39 32C42 35 48 35 51 32" stroke="#ff8b65" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M22 25C25 21 35 21 38 25" stroke="#ffbe53" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="25" cy="20" r="1.5" fill="#ff5b7f"/>
+                    <circle cx="35" cy="20" r="1.5" fill="#ff5b7f"/>
+                </svg>
+            </div>
+            <div class="card-body p-4 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0 text-dark">Cocina "Masa Madre"</h5>
+                    <span class="badge badge-rama-m rounded-pill px-2.5 py-1 small">Masculina</span>
+                </div>
+                <p class="text-secondary small mb-3">Cocina Industrial, Panificación y Logística de Alimentos.</p>
+                <p class="text-muted small lh-relaxed">
+                    Dirigido a hombres interesados en capacitarse en técnicas gastronómicas de mediana y gran escala, manipulación de alimentos y distribución eficiente.
+                </p>
+                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="text-secondary small">📍 Sede Central</span>
+                    <a href="{% url 'news:contacto' %}" class="btn btn-outline-sunrise btn-sm">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Institute 5 -->
+    <div class="col institute-card-item" data-rama="F">
+        <div class="card-custom h-100 d-flex flex-column">
+            <div class="card-custom-header text-center py-4 bg-light">
+                <!-- Tech/Laptop SVG Logo -->
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                    <circle cx="30" cy="30" r="28" fill="#fff5f7" stroke="#ff5b7f" stroke-width="2"/>
+                    <rect x="18" y="18" width="24" height="16" rx="2" fill="#ff5b7f"/>
+                    <rect x="20" y="20" width="20" height="12" fill="#white-glass"/>
+                    <path d="M14 38H46" stroke="#ff8b65" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="30" cy="26" r="2" fill="#ffbe53"/>
+                </svg>
+            </div>
+            <div class="card-body p-4 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0 text-dark">Informática "Conexión F"</h5>
+                    <span class="badge badge-rama-f rounded-pill px-2.5 py-1 small">Femenina</span>
+                </div>
+                <p class="text-secondary small mb-3">Alfabetización Digital, Redes y Administración Contable.</p>
+                <p class="text-muted small lh-relaxed">
+                    Orientado a reducir la brecha digital y brindar herramientas informáticas clave para la empleabilidad de mujeres en puestos administrativos y comerciales.
+                </p>
+                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="text-secondary small">📍 Sede Norte</span>
+                    <a href="{% url 'news:contacto' %}" class="btn btn-outline-sunrise btn-sm">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Institute 6 -->
+    <div class="col institute-card-item" data-rama="M">
+        <div class="card-custom h-100 d-flex flex-column">
+            <div class="card-custom-header text-center py-4 bg-light">
+                <!-- Electric/Lightning SVG Logo -->
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                    <circle cx="30" cy="30" r="28" fill="#fffcfb" stroke="#ff8b65" stroke-width="2"/>
+                    <path d="M32 16L20 32H30L28 44L40 28H30L32 16Z" fill="#ffbe53" stroke="#231225" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="card-body p-4 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0 text-dark">Electricidad "Voltio"</h5>
+                    <span class="badge badge-rama-m rounded-pill px-2.5 py-1 small">Masculina</span>
+                </div>
+                <p class="text-secondary small mb-3">Instalaciones Eléctricas Domiciliarias y Reparación.</p>
+                <p class="text-muted small lh-relaxed">
+                    Capacitación práctica y teórica sobre instalaciones, normativas vigentes, circuitos y reparación de artefactos, con fuerte énfasis en seguridad ocupacional.
+                </p>
+                <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="text-secondary small">📍 Sede Oeste</span>
+                    <a href="{% url 'news:contacto' %}" class="btn btn-outline-sunrise btn-sm">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- CSS/JS Filter Logic -->
+<script>
+function filterInstitutes(rama, element) {
+    // Update active button state
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+
+    // Filter cards
+    const cards = document.querySelectorAll('.institute-card-item');
+    cards.forEach(card => {
+        const cardRama = card.getAttribute('data-rama');
+        if (rama === 'all' || cardRama === rama) {
+            card.style.display = 'block';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+            }, 50);
+        } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.style.display = 'none';
+            }, 300);
+        }
+    });
+}
+</script>
+{% endblock %}

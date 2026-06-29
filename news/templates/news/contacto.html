@@ -1,0 +1,97 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center fade-in">
+    <div class="col-12 text-center mb-5">
+        <span class="badge bg-sunrise-gradient text-white mb-2 px-3 py-2 rounded-pill">Comunícate con Nosotros</span>
+        <h1 class="display-5 fw-extrabold text-sunrise-gradient font-serif">Ponte en Contacto</h1>
+        <p class="text-secondary mx-auto" style="max-width: 600px;">
+            ¿Tienes dudas, consultas o quieres sumarte a nuestros talleres? Escríbenos y te responderemos a la brevedad.
+        </p>
+    </div>
+
+    <!-- Contact details column -->
+    <div class="col-md-5 mb-4">
+        <div class="card-custom h-100 p-4 p-md-5">
+            <h3 class="font-serif mb-4 text-dark">Información de Contacto</h3>
+            
+            <div class="d-flex align-items-start gap-3 mb-4">
+                <span class="fs-4">✉️</span>
+                <div>
+                    <h6 class="fw-bold mb-1">Correo Electrónico</h6>
+                    <a href="mailto:contacto@cisa.org.ar" class="text-primary-sunrise fw-bold fs-5">contacto@cisa.org.ar</a>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 mb-4">
+                <span class="fs-4">📍</span>
+                <div>
+                    <h6 class="fw-bold mb-1">Dirección Central</h6>
+                    <p class="text-secondary mb-0">Av. General Paz 7890, Ciudad Autónoma de Buenos Aires, Argentina</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 mb-4">
+                <span class="fs-4">📞</span>
+                <div>
+                    <h6 class="fw-bold mb-1">Teléfono</h6>
+                    <p class="text-secondary mb-0">+54 (11) 4567-8901</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3">
+                <span class="fs-4">⏰</span>
+                <div>
+                    <h6 class="fw-bold mb-1">Horario de Atención</h6>
+                    <p class="text-secondary mb-0">Lunes a Viernes de 9:00 a 18:00 hs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form column -->
+    <div class="col-md-7 mb-4">
+        <div class="card-custom h-100 p-4 p-md-5">
+            {% if success %}
+                <div class="text-center py-5">
+                    <div class="fs-1 mb-3">✉️</div>
+                    <h3 class="font-serif text-sunrise-gradient mb-3">¡Mensaje Enviado con Éxito!</h3>
+                    <p class="text-secondary mb-4">
+                        Gracias por comunicarte con CISA. Tu consulta ha sido recibida y nuestro equipo administrativo te responderá al correo electrónico proporcionado a la brevedad.
+                    </p>
+                    <a href="{% url 'news:home' %}" class="btn btn-primary-sunrise rounded-pill px-4">Volver al Inicio</a>
+                </div>
+            {% else %}
+                <h3 class="font-serif mb-4 text-dark">Envíanos un Mensaje</h3>
+                <form method="post" action="{% url 'news:contacto' %}">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control form-control-custom" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control form-control-custom" id="email" name="email" placeholder="Ej: juan@email.com" required>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="asunto" class="form-label">Asunto</label>
+                            <input type="text" class="form-control form-control-custom" id="asunto" name="asunto" placeholder="Ej: Consulta sobre Talleres" required>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea class="form-control form-control-custom" id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu consulta aquí..." required></textarea>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary-sunrise px-5 py-2.5 rounded-pill shadow-sm">
+                                Enviar Consulta &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

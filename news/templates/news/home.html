@@ -1,0 +1,161 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section fade-in shadow-sm">
+    <div class="row align-items-center">
+        <div class="col-lg-7 hero-content text-center text-lg-start">
+            <span class="badge bg-sunrise-gradient text-white mb-3 px-3 py-2 fs-6 rounded-pill">Portal Oficial</span>
+            <h1 class="display-4 fw-extrabold text-sunrise-gradient mb-3">Construyendo Comunidad</h1>
+            <p class="fs-5 text-secondary mb-4 font-serif">
+                "Un lugar de encuentro y trabajo compartido, donde cada par de manos contribuye a amasar un futuro lleno de esperanza."
+            </p>
+            <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                <a href="#historia" class="btn btn-primary-sunrise">Nuestra Historia</a>
+                <a href="{% url 'news:institutos' %}" class="btn btn-outline-sunrise">Ver Institutos</a>
+            </div>
+        </div>
+        <div class="col-lg-5 mt-4 mt-lg-0 text-center">
+            {% include 'layouts/logo_svg.html' with class='hero-logo' %}
+        </div>
+    </div>
+</div>
+
+<div class="row g-4" id="historia">
+    <!-- Historia de la Institución -->
+    <div class="col-lg-7">
+        <div class="card-custom h-100 p-4 p-md-5">
+            <h2 class="font-serif mb-4 text-sunrise-gradient border-bottom pb-3">Nuestra Historia</h2>
+            <p class="fs-6 text-secondary lh-lg mb-3">
+                CISA nació como una iniciativa comunitaria destinada a promover la integración, el trabajo cooperativo y el desarrollo humano en diversos sectores de la sociedad. Fundada bajo los valores del esfuerzo compartido, el respeto mutuo y la solidaridad activa, nuestra institución se ha consolidado como un puente de oportunidades para cientos de personas.
+            </p>
+            <p class="fs-6 text-secondary lh-lg mb-3">
+                A través de nuestros talleres de oficios, programas de inserción laboral y espacios de encuentro grupal, fomentamos que cada miembro de la comunidad descubra y fortalezca sus capacidades. Creemos firmemente en el poder transformador del trabajo manual: nuestras manos, unidas en el esfuerzo cotidiano de amasar y crear, simbolizan la capacidad de moldear nuestro propio destino colectivo de manera constructiva, autónoma y solidaria.
+            </p>
+        </div>
+    </div>
+
+    <!-- Última Noticia Destacada -->
+    <div class="col-lg-5">
+        <div class="card-custom h-100 d-flex flex-column">
+            <div class="card-custom-header bg-sunrise-gradient text-white">
+                <h4 class="mb-0 font-serif">Última Novedad</h4>
+            </div>
+            
+            {% if noticias %}
+                {% with noticias|first as ultima %}
+                {% if ultima.imagen %}
+                    <img src="{{ ultima.imagen.url }}" class="img-fluid object-fit-cover" style="height: 180px;" alt="{{ ultima.titulo }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column p-4">
+                    <h4 class="fw-bold text-dark mb-2">{{ ultima.titulo }}</h4>
+                    <p class="text-secondary small mb-3">{{ ultima.resumen|truncatechars:120 }}</p>
+                    
+                    <div class="mt-auto">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            {% if ultima.ubicacion %}
+                                <span class="meta-badge">
+                                    📍 {{ ultima.ubicacion }}
+                                </span>
+                            {% endif %}
+                            <span class="meta-badge">
+                                📅 {{ ultima.fecha_evento|default:ultima.fecha|date:"d/m/Y" }}
+                            </span>
+                            {% if ultima.hora_evento %}
+                                <span class="meta-badge">
+                                    ⏰ {{ ultima.hora_evento|time:"H:i" }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                            <a href="{% url 'news:noticias_detalle' ultima.pk %}" class="btn btn-primary-sunrise btn-sm">Leer Artículo</a>
+                            
+                            {% if user.is_staff %}
+                                <div class="btn-group">
+                                    <a href="{% url 'news:noticias_editar' ultima.pk %}" class="btn btn-outline-warning btn-sm border-0">✏️</a>
+                                    <a href="{% url 'news:noticias_eliminar' ultima.pk %}" class="btn btn-outline-danger btn-sm border-0">🗑️</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+            {% else %}
+                <div class="card-body d-flex align-items-center justify-content-center p-5 text-center">
+                    <div>
+                        <div class="text-muted mb-2">No hay noticias cargadas.</div>
+                        <p class="text-white-50 small">Vuelve pronto para enterarte de novedades.</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Novedades Grid -->
+<div class="row mt-5">
+    <div class="col-12 mb-4">
+        <h2 class="font-serif text-dark mb-2">Actividades y Novedades</h2>
+        <p class="text-secondary fs-6">Explora todo lo que está sucediendo en nuestros institutos y comunidades.</p>
+        <hr class="opacity-10">
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 fade-in">
+    {% for noticia in noticias %}
+        {% if not forloop.first %}
+        <div class="col">
+            <div class="card-custom h-100 d-flex flex-column">
+                {% if noticia.imagen %}
+                    <img src="{{ noticia.imagen.url }}" class="card-img-top object-fit-cover" alt="{{ noticia.titulo }}" style="height: 180px;">
+                {% else %}
+                    <div class="bg-sunrise-gradient text-white d-flex align-items-center justify-content-center" style="height: 180px;">
+                        <span class="fs-4 opacity-50">CISA</span>
+                    </div>
+                {% endif %}
+                
+                <div class="card-body d-flex flex-column p-4">
+                    <h5 class="card-title fw-bold text-dark mb-2">{{ noticia.titulo }}</h5>
+                    <p class="card-text text-secondary small mb-3">{{ noticia.resumen|truncatechars:100 }}</p>
+                    
+                    <div class="mt-auto">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            {% if noticia.ubicacion %}
+                                <span class="meta-badge text-truncate" style="max-width: 150px;">
+                                    📍 {{ noticia.ubicacion }}
+                                </span>
+                            {% endif %}
+                            <span class="meta-badge">
+                                📅 {{ noticia.fecha_evento|default:noticia.fecha|date:"d/m/Y" }}
+                            </span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                            <a href="{% url 'news:noticias_detalle' noticia.pk %}" class="btn btn-outline-sunrise btn-sm w-100 text-center">Leer Más</a>
+                            {% if user.is_staff %}
+                                <div class="btn-group ms-2">
+                                    <a href="{% url 'news:noticias_editar' noticia.pk %}" class="btn btn-light btn-sm border" title="Editar">✏️</a>
+                                    <a href="{% url 'news:noticias_eliminar' noticia.pk %}" class="btn btn-light btn-sm border text-danger" title="Eliminar">🗑️</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% empty %}
+        <!-- Si solo había 1 noticia, se omitió por forloop.first, pero si no hay noticias en absoluto, mostramos esto -->
+        {% if not noticias %}
+        <div class="col-12 text-center my-4 w-100">
+            <div class="glass-panel p-5 text-center">
+                <div class="fs-1 mb-3">📢</div>
+                <h4 class="fw-bold">No hay más novedades cargadas</h4>
+                <p class="text-secondary mb-0">La administración de CISA cargará más contenido próximamente.</p>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

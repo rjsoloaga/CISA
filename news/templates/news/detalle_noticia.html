@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-9">
+        <div class="card-custom mb-4">
+            <!-- Article Banner Image -->
+            {% if noticia.imagen %}
+                <div class="position-relative" style="max-height: 400px; overflow: hidden;">
+                    <img src="{{ noticia.imagen.url }}" class="w-100 object-fit-cover" style="max-height: 400px;" alt="{{ noticia.titulo }}">
+                    <div class="position-absolute bottom-0 start-0 w-100 p-4 bg-gradient-dark" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
+                        <h1 class="text-white font-serif display-5 mb-0">{{ noticia.titulo }}</h1>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card-custom-header bg-sunrise-gradient text-white p-5 text-center">
+                    <h1 class="font-serif display-5 mb-0">{{ noticia.titulo }}</h1>
+                </div>
+            {% endif %}
+
+            <div class="card-body p-4 p-md-5">
+                <!-- Metadata Badges -->
+                <div class="d-flex flex-wrap gap-2 mb-4 pb-3 border-bottom">
+                    {% if noticia.ubicacion %}
+                        <span class="meta-badge fs-6 py-2 px-3">
+                            📍 {{ noticia.ubicacion }}
+                        </span>
+                    {% endif %}
+                    <span class="meta-badge fs-6 py-2 px-3">
+                        📅 {{ noticia.fecha_evento|default:noticia.fecha|date:"d/m/Y" }}
+                    </span>
+                    {% if noticia.hora_evento %}
+                        <span class="meta-badge fs-6 py-2 px-3">
+                            ⏰ {{ noticia.hora_evento|time:"H:i" }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- Abstract / Summary -->
+                <p class="fs-5 text-dark fw-bold mb-4 font-serif lh-base">
+                    {{ noticia.resumen }}
+                </p>
+
+                <!-- Full Body -->
+                <div class="text-secondary fs-6 lh-lg mb-5" style="white-space: pre-line;">
+                    {{ noticia.cuerpo }}
+                </div>
+
+                <!-- Action Footer -->
+                <div class="d-flex justify-content-between align-items-center pt-4 border-top">
+                    <a href="{% url 'news:home' %}" class="btn btn-outline-sunrise">
+                        &larr; Volver al Inicio
+                    </a>
+
+                    {% if user.is_staff %}
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'news:noticias_editar' noticia.pk %}" class="btn btn-warning px-4 rounded-pill text-white fw-bold">
+                                ✏️ Editar
+                            </a>
+                            <a href="{% url 'news:noticias_eliminar' noticia.pk %}" class="btn btn-danger px-4 rounded-pill text-white fw-bold">
+                                🗑️ Eliminar
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

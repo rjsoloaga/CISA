@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap');
+
+:root {
+    --primary-rose: #ff5b7f;
+    --primary-rose-hover: #e04a6c;
+    --secondary-orange: #ff8b65;
+    --accent-gold: #ffbe53;
+    --dark-purple: #231225;
+    --dark-purple-rgb: 35, 18, 37;
+    --light-bg: #fffbfb;
+    --light-pink-bg: #fff0f3;
+    --card-shadow: 0 10px 30px rgba(220, 150, 160, 0.12);
+    --hover-shadow: 0 15px 40px rgba(220, 100, 120, 0.22);
+    --border-glass: rgba(255, 91, 127, 0.15);
+    --white-glass: rgba(255, 255, 255, 0.75);
+    --font-heading: 'Outfit', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--dark-purple);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--dark-purple);
+}
+
+.font-serif {
+    font-family: var(--font-serif);
+}
+
+/* Sunrise Gradient Elements */
+.bg-sunrise-gradient {
+    background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-rose) 60%, var(--secondary-orange) 100%);
+}
+
+.text-sunrise-gradient {
+    background: linear-gradient(135deg, var(--primary-rose) 0%, var(--secondary-orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Navbar */
+.navbar-custom {
+    background: rgba(35, 18, 37, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 91, 127, 0.2);
+    padding: 0.8rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    transition: all 0.3s ease;
+}
+
+.navbar-custom .navbar-brand {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-custom .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.navbar-custom .nav-link:hover, 
+.navbar-custom .nav-item.active .nav-link {
+    color: #fff !important;
+    background: rgba(255, 91, 127, 0.15);
+}
+
+/* Buttons */
+.btn-primary-sunrise {
+    background: linear-gradient(135deg, var(--primary-rose) 0%, var(--secondary-orange) 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(255, 91, 127, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-primary-sunrise:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 91, 127, 0.45);
+    color: white;
+}
+
+.btn-outline-sunrise {
+    background: transparent;
+    border: 2px solid var(--primary-rose);
+    color: var(--primary-rose);
+    font-weight: 600;
+    padding: 0.5rem 1.4rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-sunrise:hover {
+    background: var(--primary-rose);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Cards */
+.card-custom {
+    background: var(--white-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+}
+
+.card-custom:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--hover-shadow);
+    border-color: rgba(255, 91, 127, 0.3);
+}
+
+.card-custom-header {
+    background: linear-gradient(135deg, #fff 0%, var(--light-pink-bg) 100%);
+    border-bottom: 1px solid var(--border-glass);
+    padding: 1.2rem;
+}
+
+/* Glass Panels */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--card-shadow);
+    border-radius: 24px;
+}
+
+/* Hero Section */
+.hero-section {
+    background: radial-gradient(circle at 10% 20%, rgba(255, 240, 243, 0.9) 0%, rgba(255, 252, 252, 1) 90%);
+    border-radius: 30px;
+    padding: 4rem 2rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(255, 91, 127, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 142, 83, 0.15) 0%, rgba(255, 91, 127, 0.08) 50%, transparent 80%);
+    filter: blur(40px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Filter Controls */
+.filter-btn-group {
+    background: rgba(255, 91, 127, 0.05);
+    border: 1px solid var(--border-glass);
+    padding: 6px;
+    border-radius: 40px;
+    display: inline-flex;
+    gap: 5px;
+}
+
+.filter-btn {
+    border: none;
+    background: transparent;
+    padding: 0.6rem 1.8rem;
+    border-radius: 30px;
+    font-weight: 600;
+    color: var(--dark-purple);
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-rose) 0%, var(--secondary-orange) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 91, 127, 0.25);
+}
+
+/* Forms styling */
+.form-control-custom, 
+input[type="text"], 
+input[type="password"], 
+input[type="email"], 
+input[type="date"], 
+input[type="time"], 
+textarea, 
+select {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 91, 127, 0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: var(--dark-purple);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.form-control-custom:focus,
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="email"]:focus, 
+input[type="date"]:focus, 
+input[type="time"]:focus, 
+textarea:focus, 
+select:focus {
+    background: #fff;
+    border-color: var(--primary-rose);
+    box-shadow: 0 0 0 4px rgba(255, 91, 127, 0.15);
+    outline: none;
+}
+
+
+label {
+    font-weight: 600;
+    color: var(--dark-purple);
+    margin-bottom: 0.4rem;
+}
+
+/* Detail Badge Styles */
+.meta-badge {
+    background: rgba(255, 91, 127, 0.06);
+    border: 1px solid rgba(255, 91, 127, 0.12);
+    color: var(--primary-rose);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    background: var(--dark-purple);
+    color: rgba(255, 255, 255, 0.7);
+    border-top: 1px solid rgba(255, 91, 127, 0.15);
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: var(--primary-rose);
+}
+
+/* Keyframe animations */
+@keyframes pulseGlow {
+    0% { transform: scale(1); opacity: 0.95; }
+    50% { transform: scale(1.02); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.95; }
+}
+
+@keyframes kneadAnimation {
+    0% { transform: translateY(0) scaleY(1); }
+    50% { transform: translateY(4px) scaleY(0.96); }
+    100% { transform: translateY(0) scaleY(1); }
+}
+
+@keyframes handMoveLeft {
+    0% { transform: rotate(0deg) translate(0, 0); }
+    50% { transform: rotate(-5deg) translate(-2px, 2px); }
+    100% { transform: rotate(0deg) translate(0, 0); }
+}
+
+@keyframes handMoveRight {
+    0% { transform: rotate(0deg) translate(0, 0); }
+    50% { transform: rotate(5deg) translate(2px, 2px); }
+    100% { transform: rotate(0deg) translate(0, 0); }
+}
+
+/* Classes to apply animations */
+.animate-knead {
+    animation: kneadAnimation 4s ease-in-out infinite;
+}
+
+.animate-hand-left {
+    transform-origin: bottom left;
+    animation: handMoveLeft 4s ease-in-out infinite;
+}
+
+.animate-hand-right {
+    transform-origin: bottom right;
+    animation: handMoveRight 4s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: pulseGlow 6s ease-in-out infinite;
+}
+
+/* Page transitions */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Institutes branch tags */
+.badge-rama-f {
+    background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+    color: white;
+}
+.badge-rama-m {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+.badge-rama-a {
+    background: linear-gradient(135deg, #b19ffb 0%, #7d6dfa 100%);
+    color: white;
+}

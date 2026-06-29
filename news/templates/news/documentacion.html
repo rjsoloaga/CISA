@@ -1,0 +1,106 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-10">
+        <div class="card-custom p-4 p-md-5 mb-5">
+            <span class="badge bg-sunrise-gradient text-white mb-2 px-3 py-2 rounded-pill">Guía del Sistema</span>
+            <h1 class="display-5 fw-extrabold text-sunrise-gradient font-serif mb-4">Documentación del Portal CISA</h1>
+            
+            <p class="fs-5 text-secondary mb-5">
+                Esta página detalla el funcionamiento de la plataforma CISA, su diseño visual, sistema de navegación y las pautas estéticas adoptadas para el cumplimiento de los requerimientos.
+            </p>
+
+            <!-- Sección 1: Diseño e Identidad Visual -->
+            <div class="mb-5">
+                <h3 class="font-serif text-dark border-bottom pb-2 mb-3">🎨 1. Estética y Paleta de Colores</h3>
+                <p class="text-secondary">
+                    La interfaz visual del portal CISA ha sido diseñada bajo el concepto de un <strong>"Amanecer" (Sunrise)</strong>, simbolizando el comienzo de nuevas oportunidades y el trabajo conjunto.
+                </p>
+                <div class="row g-3 my-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #ff5b7f; box-shadow: var(--card-shadow);">
+                            <strong>Rosado Principal</strong>
+                            <div class="small opacity-75 mt-1">#ff5b7f</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #ff8b65; box-shadow: var(--card-shadow);">
+                            <strong>Naranja Coral</strong>
+                            <div class="small opacity-75 mt-1">#ff8b65</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #231225; box-shadow: var(--card-shadow);">
+                            <strong>Violeta Oscuro</strong>
+                            <div class="small opacity-75 mt-1">#231225</div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="text-secondary small">
+                    <li><strong>Glassmorphism (Efecto Vidrio):</strong> Aplicado en barras de navegación, botones y paneles traslúcidos con bordes sutiles y desenfoque de fondo (`backdrop-filter`).</li>
+                    <li><strong>Ausencia de Iconografía Religiosa:</strong> Cumpliendo estrictamente con las directrices institucionales, todos los logos, ilustraciones y plantillas de diseño se han mantenido libres de símbolos religiosos.</li>
+                </ul>
+            </div>
+
+            <!-- Sección 2: Logo Dinámico -->
+            <div class="mb-5">
+                <h3 class="font-serif text-dark border-bottom pb-2 mb-3">🤝 2. Logo SVG Animado</h3>
+                <p class="text-secondary">
+                    El logotipo oficial que encabeza la barra de navegación y la sección de inicio no es una imagen estática. Está codificado directamente en formato <strong>SVG inline</strong> e incluye micro-animaciones CSS integradas:
+                </p>
+                <div class="glass-panel p-4 my-3 text-center">
+                    <div style="width: 100px; height: 100px; margin: 0 auto;">
+                        {% include 'layouts/logo_svg.html' with class='nav-logo' %}
+                    </div>
+                    <div class="small text-muted mt-3">Logotipo en funcionamiento interactivo</div>
+                </div>
+                <ul class="text-secondary small">
+                    <li><strong>Elementos Representados:</strong> Manos cooperativas en movimiento, personas de la comunidad con rostros suavizados/difuminados en el fondo, y una masa siendo amasada centralmente.</li>
+                    <li><strong>Efectos de Animación:</strong> Pulsación de resplandor solar de fondo (`animate-glow`), inclinación alternada en las manos (`animate-hand-left`, `animate-hand-right`) y deformación suave de la masa central (`animate-knead`).</li>
+                </ul>
+            </div>
+
+            <!-- Sección 3: Manual de Administrador (Noticias CRUD) -->
+            <div class="mb-5">
+                <h3 class="font-serif text-dark border-bottom pb-2 mb-3">⚙️ 3. Administración y CRUD de Noticias</h3>
+                <p class="text-secondary">
+                    El sistema cuenta con un panel CRUD adaptado y protegido para uso exclusivo del Administrador (usuario con permisos de Staff).
+                </p>
+                <div class="row g-4 mt-2">
+                    <div class="col-md-6">
+                        <div class="p-4 border rounded-3 h-100">
+                            <h6 class="fw-bold mb-2">📥 Publicar Noticias</h6>
+                            <p class="small text-secondary mb-0">
+                                Accede desde el botón **"Nueva Noticia"** del menú superior. El formulario te permite adjuntar una imagen destacada, ingresar la ubicación del evento, y definir la fecha y hora específicas de la actividad.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-4 border rounded-3 h-100">
+                            <h6 class="fw-bold mb-2">✏️ Edición y Eliminación</h6>
+                            <p class="small text-secondary mb-0">
+                                Los botones de acción rápida para editar o borrar noticias se muestran directamente sobre las tarjetas en la página de inicio y en la vista de lectura detallada (solo visibles para administradores autenticados).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 4: Filtros en la Sección Institutos -->
+            <div class="mb-0">
+                <h3 class="font-serif text-dark border-bottom pb-2 mb-3">🏢 4. Institutos y Filtros por Rama</h3>
+                <p class="text-secondary">
+                    La página de **Institutos** visualiza todas las sedes institucionales y centros de capacitación. Cuenta con un sistema de filtrado dinámico client-side basado en la rama del curso:
+                </p>
+                <ul class="text-secondary small">
+                    <li><strong>Rama Femenina (🌸):</strong> Cursos y talleres orientados específicamente a mujeres.</li>
+                    <li><strong>Rama Masculina (🪵):</strong> Cursos y talleres orientados a hombres.</li>
+                    <li><strong>Integración en Tiempo Real:</strong> El filtrado se realiza al instante en el navegador mediante Javascript con animaciones suaves de entrada y salida, sin necesidad de recargar la página.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
