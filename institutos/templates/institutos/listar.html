@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Institutos</h1>
+    
+    {% for instituto in institutos %}
+    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px;">
+        <h3> {{instituto.nombre}} </h3>
+        <p><strong>Responsable: </strong> {{ instituto.responsable }} </p>
+        <p><strong>Dirección: </strong> {{ instituto.direccion }} </p>
+        <p><strong>Teléfono: </strong> {{ instituto.telefono }} </p>
+        <p><strong>Email: </strong> {{ instituto.email }} </p>
+        <p><strong>Web: </strong> <a href="{{ instituto.website }}" target="_blank">{{ instituto.website }}</a> </p>
+        <p><strong>Rama: </strong> {{ instituto.get_rama_display }} </p>
+
+        {% if instituto.logo %}
+            <p><strong>Logo: </strong> <img src="{{ instituto.logo.url }}" width="100" alt="Logo"> </p>
+        {% else %}
+            <p><em>Sin logo cargado</em></p>
+        {% endif %}
+
+        <a href="{% url 'institutos:editar' instituto.pk %}">Editar</a>
+        <a href="{% url 'institutos:eliminar' instituto.pk %}">Eliminar</a>
+        
+    </div>
+
+    {% empty %}
+        <p>No hay institutos cargados en el sistema.</p>
+
+    {% endfor %}
+
+{% endblock %}
