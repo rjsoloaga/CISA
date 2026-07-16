@@ -32,3 +32,31 @@ Thumbs.db
 
 # Docker
 .docker-clean
+
+# Logs
+*.log
+
+# Configuraciones locales y secretos de Django
+local_settings.py
+.env.*
+!.env.example
+
+# Base de datos y volcados de datos
+*.sql
+*.sqlite
+
+# Pruebas y cobertura de código
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Archivos temporales de otros editores
+*.swo
+*~
+
+# Carpetas y documentos privados de CISA
+Documentos CISA/
+[Dd]ocumentos\ [Cc]isa/
+[Dd]ocumentos\ [Cc]ISA/
+

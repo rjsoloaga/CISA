@@ -24,7 +24,7 @@ def instituto_crear(request):
             return redirect('institutos:listar')
     else:
         form = InstitutoForm()
-    return render(request, 'institutos/crear_instituto.html', {'form' : form})
+    return render(request, 'institutos/instituto_form.html', {'form' : form})
 
 @staff_member_required
 def instituto_editar(request, pk):
@@ -37,7 +37,7 @@ def instituto_editar(request, pk):
     else:
         form = InstitutoForm(instance=instituto)
 
-    return render(request, 'institutos/editar_instituto.html', {'form' : form, 'instituto' : instituto})
+    return render(request, 'institutos/instituto_form.html', {'form' : form, 'instituto' : instituto})
 
 
 @staff_member_required
@@ -47,6 +47,6 @@ def instituto_eliminar(request, pk):
         instituto.delete()
         return redirect('institutos:listar')
     else:
-        return render(request, 'institutos/eliminar_instituto.html', {'instituto' : instituto})
+        return render(request, 'institutos/instituto_confirm_delete.html', {'instituto' : instituto})
 
     

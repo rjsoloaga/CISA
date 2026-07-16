@@ -1,0 +1,225 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-10 col-xl-8">
+        <div class="card-custom">
+            <!-- Header with Albiceleste Gradient -->
+            <div class="card-custom-header bg-sunrise-gradient text-white d-flex align-items-center justify-content-between p-4">
+                <div>
+                    <h3 class="mb-1 text-white font-serif">
+                        {% if instituto %}
+                            Modificar Instituto
+                        {% else %}
+                            Nuevo Instituto
+                        {% endif %}
+                    </h3>
+                    <p class="mb-0 text-white-50 small">
+                        {% if instituto %}
+                            Actualiza la información del instituto seleccionado.
+                        {% else %}
+                            Completa el formulario para registrar un nuevo instituto.
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="fs-2 text-white-50">
+                    🏢
+                </div>
+            </div>
+
+            <!-- Form Body -->
+            <div class="card-body p-4 p-md-5">
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger shadow-sm mb-4" role="alert">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <div>
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+
+                    <div class="row g-4">
+                        <!-- Nombre del Instituto -->
+                        <div class="col-md-8">
+                            <label for="{{ form.nombre.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.nombre.label }}
+                            </label>
+                            {{ form.nombre }}
+                            {% if form.nombre.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.nombre.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Rama -->
+                        <div class="col-md-4">
+                            <label for="{{ form.rama.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.rama.label }}
+                            </label>
+                            {{ form.rama }}
+                            {% if form.rama.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.rama.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Responsable -->
+                        <div class="col-md-6">
+                            <label for="{{ form.responsable.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.responsable.label }}
+                            </label>
+                            {{ form.responsable }}
+                            {% if form.responsable.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.responsable.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Logo -->
+                        <div class="col-md-6">
+                            <label for="{{ form.logo.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.logo.label }}
+                            </label>
+                            {{ form.logo }}
+                            {% if form.logo.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.logo.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if instituto and instituto.logo %}
+                                <div class="mt-2 small d-flex align-items-center gap-2 text-secondary">
+                                    <span class="text-muted">Logo actual:</span>
+                                    <img src="{{ instituto.logo.url }}" alt="Logo" class="rounded border p-1" style="height: 35px; width: 35px; object-fit: cover;">
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Dirección -->
+                        <div class="col-md-6">
+                            <label for="{{ form.direccion.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.direccion.label }}
+                            </label>
+                            {{ form.direccion }}
+                            {% if form.direccion.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.direccion.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="col-md-6">
+                            <label for="{{ form.telefono.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.telefono.label }}
+                            </label>
+                            {{ form.telefono }}
+                            {% if form.telefono.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.telefono.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6">
+                            <label for="{{ form.email.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.email.label }}
+                            </label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.email.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Sitio Web -->
+                        <div class="col-md-6">
+                            <label for="{{ form.website.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.website.label }}
+                            </label>
+                            {{ form.website }}
+                            {% if form.website.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.website.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fundador -->
+                        <div class="col-md-6">
+                            <label for="{{ form.fundador.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.fundador.label }}
+                            </label>
+                            {{ form.fundador }}
+                            {% if form.fundador.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.fundador.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Carisma -->
+                        <div class="col-md-6">
+                            <label for="{{ form.carisma.id_for_label }}" class="form-label fw-bold text-dark">
+                                {{ form.carisma.label }}
+                            </label>
+                            {{ form.carisma }}
+                            {% if form.carisma.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.carisma.errors %}
+                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Botones de Acción -->
+                    <div class="d-flex flex-wrap gap-3 justify-content-end mt-5 pt-4 border-top">
+                        <a href="{% url 'institutos:listar' %}" class="btn btn-outline-sunrise">
+                            Cancelar y Volver
+                        </a>
+                        <button type="submit" class="btn btn-primary-sunrise">
+                            {% if instituto %}
+                                Guardar Cambios
+                            {% else %}
+                                Registrar Instituto
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

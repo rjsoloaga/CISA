@@ -1,0 +1,22 @@
+{
+  "short_name": "CISA",
+  "name": "CISA - Portal Institucional",
+  "description": "Sistema de gestión de institutos",
+  "icons": [
+    {
+      "src": "/static/img/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/img/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#2c3e50",
+  "display": "standalone",
+  "orientation": "portrait"
+}

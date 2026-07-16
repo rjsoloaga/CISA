@@ -2,32 +2,93 @@
 {% load static %}
 
 {% block content %}
-    <h1>Institutos</h1>
-    
-    {% for instituto in institutos %}
-    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px;">
-        <h3> {{instituto.nombre}} </h3>
-        <p><strong>Responsable: </strong> {{ instituto.responsable }} </p>
-        <p><strong>Dirección: </strong> {{ instituto.direccion }} </p>
-        <p><strong>Teléfono: </strong> {{ instituto.telefono }} </p>
-        <p><strong>Email: </strong> {{ instituto.email }} </p>
-        <p><strong>Web: </strong> <a href="{{ instituto.website }}" target="_blank">{{ instituto.website }}</a> </p>
-        <p><strong>Rama: </strong> {{ instituto.get_rama_display }} </p>
-
-        {% if instituto.logo %}
-            <p><strong>Logo: </strong> <img src="{{ instituto.logo.url }}" width="100" alt="Logo"> </p>
-        {% else %}
-            <p><em>Sin logo cargado</em></p>
+<div class="row mb-4 fade-in">
+    <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="font-serif text-dark mb-1">Institutos de CISA</h1>
+            <p class="text-secondary small mb-0">Listado de nuestros institutos consagrados y de presencia secular.</p>
+        </div>
+        {% if user.is_staff %}
+            <a href="{% url 'institutos:crear' %}" class="btn btn-primary-sunrise">
+                <i class="bi bi-plus-lg me-1"></i> Nuevo Instituto
+            </a>
         {% endif %}
-
-        <a href="{% url 'institutos:editar' instituto.pk %}">Editar</a>
-        <a href="{% url 'institutos:eliminar' instituto.pk %}">Eliminar</a>
-        
     </div>
+    <div class="col-12">
+        <hr class="opacity-10 mt-1">
+    </div>
+</div>
 
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 fade-in">
+    {% for instituto in institutos %}
+        <div class="col">
+            <div class="card-custom h-100 d-flex flex-column">
+                <div class="card-custom-header d-flex align-items-center gap-3 p-3">
+                    {% if instituto.logo %}
+                        <img src="{{ instituto.logo.url }}" alt="{{ instituto.nombre }}" class="rounded-circle bg-white p-1" style="width: 48px; height: 48px; object-fit: cover; border: 1.5px solid rgba(116, 192, 252, 0.25);">
+                    {% else %}
+                        <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center fw-bold" style="width: 48px; height: 48px; border: 1.5px solid rgba(116, 192, 252, 0.25); font-size: 1.2rem;">
+                            🏢
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h5 class="mb-0 font-serif text-truncate" style="max-width: 180px; color: var(--dark-navy);">{{ instituto.nombre }}</h5>
+                        <span class="badge small px-2 py-0.5 rounded-pill" style="background-color: var(--light-blue-bg); color: var(--secondary-blue) !important; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(116, 192, 252, 0.35);">
+                            {{ instituto.get_rama_display }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body p-4 d-flex flex-column">
+                    <ul class="list-unstyled mb-4 flex-grow-1 small lh-lg">
+                        <li class="mb-2 d-flex align-items-start gap-2">
+                            <span class="text-primary"><i class="bi bi-person-fill"></i></span>
+                            <div><strong>Responsable:</strong> {{ instituto.responsable }}</div>
+                        </li>
+                        <li class="mb-2 d-flex align-items-start gap-2">
+                            <span class="text-primary"><i class="bi bi-geo-alt-fill"></i></span>
+                            <div><strong>Dirección:</strong> {{ instituto.direccion }}</div>
+                        </li>
+                        <li class="mb-2 d-flex align-items-start gap-2">
+                            <span class="text-primary"><i class="bi bi-telephone-fill"></i></span>
+                            <div><strong>Teléfono:</strong> {{ instituto.telefono }}</div>
+                        </li>
+                        {% if instituto.email %}
+                            <li class="mb-2 d-flex align-items-start gap-2 text-truncate">
+                                <span class="text-primary"><i class="bi bi-envelope-fill"></i></span>
+                                <div><strong>Email:</strong> <a href="mailto:{{ instituto.email }}" class="text-decoration-none text-secondary">{{ instituto.email }}</a></div>
+                            </li>
+                        {% endif %}
+                        {% if instituto.website %}
+                            <li class="mb-0 d-flex align-items-start gap-2 text-truncate">
+                                <span class="text-primary"><i class="bi bi-globe"></i></span>
+                                <div><strong>Web:</strong> <a href="{{ instituto.website }}" target="_blank" class="text-decoration-none text-secondary">{{ instituto.website }}</a></div>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    {% if user.is_staff %}
+                        <div class="d-flex gap-2 border-top pt-3 mt-auto justify-content-end">
+                            <a href="{% url 'institutos:editar' instituto.pk %}" class="btn btn-outline-sunrise btn-sm py-1 px-3" style="font-size: 0.85rem;">
+                                <i class="bi bi-pencil-fill me-1"></i> Editar
+                            </a>
+                            <a href="{% url 'institutos:eliminar' instituto.pk %}" class="btn btn-outline-danger btn-sm py-1 px-3" style="border-radius: 30px; font-weight: 600; font-size: 0.85rem;">
+                                <i class="bi bi-trash-fill me-1"></i> Eliminar
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     {% empty %}
-        <p>No hay institutos cargados en el sistema.</p>
-
+        <div class="col-12 w-100 text-center my-5">
+            <div class="glass-panel p-5 text-center">
+                <div class="fs-1 mb-3">🏢</div>
+                <h4 class="fw-bold">No hay institutos registrados</h4>
+                <p class="text-secondary mb-0">Próximamente se listarán los institutos en el sistema.</p>
+            </div>
+        </div>
     {% endfor %}
-
+</div>
 {% endblock %}

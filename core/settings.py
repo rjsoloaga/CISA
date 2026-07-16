@@ -20,13 +20,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@_1a^!_56d1n)#k!x-n*3ala$#584s!y(lrqmiqi)w@j613*r('
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Carga DEBUG desde entorno, por defecto True en desarrollo y False si se especifica.
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('true', '1', 't', 'yes')
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
+if not SECRET_KEY:
+    if DEBUG:
+        SECRET_KEY = 'django-insecure-@_1a^!_56d1n)#k!x-n*3ala$#584s!y(lrqmiqi)w@j613*r('
+    else:
+        raise KeyError("La variable de entorno SECRET_KEY es obligatoria en producción.")
+
+# Carga los hosts permitidos desde entorno, admitiendo dominio e IP del servidor.
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost 127.0.0.1 [::1]').split()
+
 
 
 # Application definition
@@ -42,10 +50,12 @@ INSTALLED_APPS = [
     #APPS de la pagina CISA
     'news',
     'users',
+    'institutos',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise para servir archivos estáticos
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,14 +87,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Credenciales de la base de datos leídas de forma obligatoria en producción
+DB_NAME = os.environ.get('DB_NAME')
+DB_USER = os.environ.get('DB_USER')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_HOST = os.environ.get('DB_HOST')
+DB_PORT = os.environ.get('DB_PORT', '3306')
+
+if not DEBUG and not all([DB_NAME, DB_USER, DB_PASSWORD, DB_HOST]):
+    raise KeyError("Las variables de entorno de la base de datos (DB_NAME, DB_USER, DB_PASSWORD, DB_HOST) son obligatorias en producción.")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'cisa_db'),
-        'USER': os.environ.get('DB_USER', 'javier_admin'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'Ciro2014'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
-        'PORT': '3306',
+        'NAME': DB_NAME or 'cisa_db',
+        'USER': DB_USER or 'javier_admin',
+        'PASSWORD': DB_PASSWORD or 'Ciro2014',
+        'HOST': DB_HOST or 'db',
+        'PORT': DB_PORT,
     }
 }
 
@@ -127,8 +147,22 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+# Configuración de archivos estáticos y media para producción
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Almacenamiento de archivos estáticos con WhiteNoise (compresión y caché de manifiesto)
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

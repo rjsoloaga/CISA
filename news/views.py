@@ -3,7 +3,6 @@ from django.contrib.admin.views.decorators import staff_member_required
 from news.forms import NoticiaForm
 from .models import news
 
-# Create your views here.
 
 @staff_member_required
 def noticias_crear(request):
@@ -49,10 +48,6 @@ def vista_home(request):
 def vista_noticia_detalle(request, pk):
     noticia = get_object_or_404(news, pk=pk)
     return render(request, 'news/detalle_noticia.html', {'noticia': noticia})
-
-
-def vista_institutos(request):
-    return render(request, 'news/institutos.html')
 
 
 def vista_contacto(request):

@@ -18,7 +18,11 @@ services:
   web:
     build: .
     container_name: django_app
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "while ! python -c \"import socket; s = socket.socket(); s.connect(('db', 3306))\" 2>/dev/null; do echo 'Esperando a la base de datos...'; sleep 1; done &&
+             python manage.py migrate &&
+             python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings'); import django; django.setup(); from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='rsoloaga').exists() or User.objects.create_superuser('rsoloaga', 'javiersoloaga5@gmail.com', 'Ciro2014**')\" &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
