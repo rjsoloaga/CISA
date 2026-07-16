@@ -21,16 +21,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Carga DEBUG desde entorno, por defecto True en desarrollo y False si se especifica.
-DEBUG = False
+# Carga DEBUG desde la variable de entorno 'DJANGO_DEBUG'. Por defecto es False para seguridad en producción.
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() in ('true', '1', 't', 'yes')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
     if DEBUG:
+        # Clave por defecto para desarrollo local
         SECRET_KEY = 'django-insecure-@_1a^!_56d1n)#k!x-n*3ala$#584s!y(lrqmiqi)w@j613*r('
     else:
-        raise KeyError("La variable de entorno SECRET_KEY es obligatoria en producción.")
+        # Error explicativo claro para el entorno de producción
+        raise KeyError(
+            "ERROR DE CONFIGURACIÓN: La variable de entorno 'SECRET_KEY' no está definida. "
+            "Para ejecutar el proyecto en producción (DEBUG=False), debes proveer una clave secreta segura. "
+            "Puedes configurarla en tu servidor de producción, en un archivo '.env' en la raíz del proyecto, "
+            "o directamente en la sección 'environment' de tu 'docker-compose.yml'."
+        )
 
 # Carga los hosts permitidos desde entorno, admitiendo dominio e IP del servidor.
 ALLOWED_HOSTS = ['solotech.com.ar', 'www.solotech.com.ar', '192.168.1.51', 'localhost', '127.0.0.1']

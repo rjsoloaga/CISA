@@ -32,6 +32,8 @@ services:
       DB_NAME: cisa_db
       DB_USER: javier_admin
       DB_PASSWORD: Ciro2014
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-False}
+      SECRET_KEY: ${SECRET_KEY}
     depends_on:
       - db
 
