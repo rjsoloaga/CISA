@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Carga DEBUG desde entorno, por defecto True en desarrollo y False si se especifica.
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('true', '1', 't', 'yes')
+DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -33,8 +33,7 @@ if not SECRET_KEY:
         raise KeyError("La variable de entorno SECRET_KEY es obligatoria en producción.")
 
 # Carga los hosts permitidos desde entorno, admitiendo dominio e IP del servidor.
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost 127.0.0.1 [::1]').split()
-
+ALLOWED_HOSTS = ['solotech.com.ar', 'www.solotech.com.ar', '192.168.1.51', 'localhost', '127.0.0.1']
 
 
 # Application definition
