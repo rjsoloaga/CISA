@@ -1,0 +1,314 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-10">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+            <span class="badge bg-sunrise-gradient text-white mb-2 px-3 py-2 rounded-pill">Descargas y Recursos</span>
+            <h1 class="display-5 fw-extrabold text-sunrise-gradient font-serif">Documentos de CISA</h1>
+            <p class="text-secondary mx-auto" style="max-width: 600px;">
+                Explora, consulta y descarga los documentos oficiales de la Conferencia, textos del Magisterio de la Iglesia y fichas informativas de cada Instituto Secular en Argentina.
+            </p>
+            <hr class="opacity-10 mt-4 mb-4">
+        </div>
+
+        <!-- Accessible Icon Grid -->
+        <div class="row g-4 mb-5">
+            <!-- Grid Card 1: Documentos CISA -->
+            <div class="col-md-4">
+                <a href="#folletos-cisa" class="text-decoration-none text-dark">
+                    <div class="doc-category-card">
+                        <div class="doc-icon-circle">
+                            <i class="bi bi-folder-fill"></i>
+                        </div>
+                        <h4 class="font-serif fw-bold text-dark mb-2">Documentos CISA</h4>
+                        <p class="small text-secondary mb-0">
+                            Nóminas, memorias oficiales y boletines informativos de nuestra Conferencia.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Grid Card 2: Documentos de la Iglesia -->
+            <div class="col-md-4">
+                <a href="#documentos-iglesia" class="text-decoration-none text-dark">
+                    <div class="doc-category-card">
+                        <div class="doc-icon-circle">
+                            <i class="bi bi-book-fill"></i>
+                        </div>
+                        <h4 class="font-serif fw-bold text-dark mb-2">Magisterio e Identidad</h4>
+                        <p class="small text-secondary mb-0">
+                            Textos doctrinales de la Iglesia, constituciones apostólicas y reflexiones de la vida consagrada.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Grid Card 3: Fichas de los Institutos -->
+            <div class="col-md-4">
+                <a href="#fichas-institutos" class="text-decoration-none text-dark">
+                    <div class="doc-category-card">
+                        <div class="doc-icon-circle">
+                            <i class="bi bi-file-earmark-person-fill"></i>
+                        </div>
+                        <h4 class="font-serif fw-bold text-dark mb-2">Fichas de Institutos</h4>
+                        <p class="small text-secondary mb-0">
+                            Datos particulares, actas constitutivas, fundadores y carisma de los institutos en Argentina.
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Section 1: Documentos CISA -->
+        <div class="my-5 pt-3" id="folletos-cisa">
+            <h3 class="font-serif text-dark border-bottom pb-3 mb-4 d-flex align-items-center gap-2">
+                <span class="text-primary"><i class="bi bi-folder2-open"></i></span>
+                Documentos y Publicaciones de CISA
+            </h3>
+
+            <!-- Nómina -->
+            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                        <h5 class="fw-bold mb-0 text-dark">Nómina de Institutos Seculares en Argentina</h5>
+                    </div>
+                    <p class="small text-secondary mb-0">
+                        Listado oficial de todos los institutos adheridos y participantes en la Conferencia de Argentina.
+                    </p>
+                </div>
+                <div>
+                    <a href="/media/documentos/NOMINA_DE_INSTITUTOS_SECULARES.docx" class="btn btn-outline-sunrise px-4 py-2" download>
+                        <i class="bi bi-download me-1"></i> Descargar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Memoria JISA -->
+            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="doc-badge-format doc-badge-pdf">PDF</span>
+                        <h5 class="fw-bold mb-0 text-dark">Memoria JISA - CISA</h5>
+                    </div>
+                    <p class="small text-secondary mb-0">
+                        Resumen histórico, actas e hitos de las Jornadas de los Institutos Seculares de Argentina.
+                    </p>
+                </div>
+                <div>
+                    <a href="/media/documentos/MEMORIA_DE_JISA_-_CISA.pdf" class="btn btn-outline-sunrise px-4 py-2" download>
+                        <i class="bi bi-download me-1"></i> Descargar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Noticiero JISA -->
+            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="doc-badge-format doc-badge-doc">DOC</span>
+                        <h5 class="fw-bold mb-0 text-dark">Noticiero Especial Aniversario JISA</h5>
+                    </div>
+                    <p class="small text-secondary mb-0">
+                        Boletín informativo y testimonios recogidos en la edición de aniversario de las jornadas.
+                    </p>
+                </div>
+                <div>
+                    <a href="/media/documentos/Noticiero_JISA_ANIVERSARIO.doc" class="btn btn-outline-sunrise px-4 py-2" download>
+                        <i class="bi bi-download me-1"></i> Descargar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Magisterio e Identidad -->
+        <div class="my-5 pt-3" id="documentos-iglesia">
+            <h3 class="font-serif text-dark border-bottom pb-3 mb-4 d-flex align-items-center gap-2">
+                <span class="text-primary"><i class="bi bi-book"></i></span>
+                Documentos del Magisterio de la Iglesia
+            </h3>
+
+            <!-- Identidad, Camino y Presencia -->
+            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                        <h5 class="fw-bold mb-0 text-dark">Identidad, Camino y Presencia en Argentina</h5>
+                    </div>
+                    <p class="small text-secondary mb-0">
+                        Estudio doctrinal detallado sobre la consagración secular y la evolución eclesial de esta vocación.
+                    </p>
+                </div>
+                <div>
+                    <a href="/media/documentos/IDENTIDAD_-_CAMINO_-_Y_PRESENCIA_EN_ARGENTINA.docx" class="btn btn-outline-sunrise px-4 py-2" download>
+                        <i class="bi bi-download me-1"></i> Descargar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Fichas de los Institutos -->
+        <div class="my-5 pt-3 mb-5" id="fichas-institutos">
+            <h3 class="font-serif text-dark border-bottom pb-3 mb-4 d-flex align-items-center gap-2">
+                <span class="text-primary"><i class="bi bi-file-earmark-spreadsheet"></i></span>
+                Fichas y Datos de los Institutos Seculares
+            </h3>
+            
+            <p class="text-secondary small mb-4">
+                Colección de fichas informativas individuales de los institutos seculares con presencia en Argentina:
+            </p>
+
+            <div class="row g-3">
+                <!-- Cristífero -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Instituto Secular Cristífero</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Ficha informativa: origen, carisma y misión en la sociedad.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Instituto_Secular_Cristifero_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Misioneras de Jesucristo Sacerdote -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Misioneras de Jesucristo Sacerdote</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Datos históricos y carisma de consagración fundado por Mons. Eduardo Pironio.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Misioneras_de_Jesucristo_Sacerdote_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Siervas de Dios Misericordia -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Siervas de Dios Misericordia</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Ficha técnica del instituto, datos de contacto y sedes en Argentina.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Siervas_de_Dios_Misericordia_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Realeza de Cristo -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Misioneras de la Realeza de Cristo</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Documentación de la rama femenina del instituto en el país.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Misioneras_de_la_Realeza_de_Cristo_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hijas de la Natividad de Maria -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Hijas de la Natividad de María</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Presencia pastoral y datos institucionales en Argentina.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Hijas_de_la_Natividad_de_Maria_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oblatas Diocesanas -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Oblatas Diocesanas</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Ficha histórica y carisma de consagración diocesana femenina.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Oblatas_Diocesanas_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schoenstatt Hermanas de Maria -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Hermanas de María de Schoenstatt</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Datos e historia de inserción de Schoenstatt en Argentina.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Hermanas_de_Maria_de_Schoenstatt_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voluntarios con Don Bosco -->
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                <h6 class="fw-bold mb-0 text-dark">Voluntarios Con Don Bosco</h6>
+                            </div>
+                            <p class="small text-secondary mb-0">Presencia, historia y notas de carisma de la rama salesiana laical.</p>
+                        </div>
+                        <div class="text-end">
+                            <a href="/media/documentos/Voluntarios_Con_Don_Bosco_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

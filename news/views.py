@@ -58,6 +58,11 @@ def vista_contacto(request):
     return render(request, 'news/contacto.html', {'success': success})
 
 
-def vista_documentacion(request):
-    return render(request, 'news/documentacion.html')
+def vista_cisa(request):
+    return render(request, 'news/cisa.html')
+
+
+def vista_documentos(request):
+    return render(request, 'news/documentos.html')
+
 

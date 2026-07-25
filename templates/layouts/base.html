@@ -36,7 +36,7 @@
 
     <!-- Top Utility Bar -->
     <div class="top-utility-bar d-none d-md-block">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container-fluid px-4 px-md-5 d-flex justify-content-between align-items-center">
             <div class="contact-info d-flex gap-4">
                 <span><i class="bi bi-telephone-fill"></i> +54 (11) 4567-8901</span>
                 <span><i class="bi bi-envelope-fill"></i> contacto@cisa.org.ar</span>
@@ -51,14 +51,12 @@
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-custom navbar-light">
-
-        <div class="container">
+        <div class="container-fluid px-4 px-md-5">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'news:home' %}">
                 <img src="{% static 'img/logo_cisa.jpg' %}" alt="Logo CISA" class="nav-logo-img">
                 <span>CISA</span>
             </a>
 
-            
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -69,14 +67,20 @@
                         <a class="nav-link" href="{% url 'news:home' %}">Inicio</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:cisa' %}">CISA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:documentos' %}">Documentos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'institutos:listar' %}">Institutos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:home' %}#noticias">Noticias</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'news:contacto' %}">Contacto</a>
                     </li>
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="{% url 'news:documentacion' %}">Documentación</a>
-                    </li>-->
                 </ul>
 
                 <div class="d-flex align-items-center gap-3">
@@ -95,15 +99,18 @@
                         <a href="{% url 'users:logout_view' %}" class="btn btn-nav-outline">
                             Cerrar Sesión
                         </a>
+                    {% else %}
+                        <a href="{% url 'users:login_view' %}" class="nav-link text-secondary p-2 d-flex align-items-center justify-content-center border rounded-circle" style="width: 38px; height: 38px; transition: all 0.2s ease;" title="Acceso de Administrador" onmouseover="this.style.backgroundColor='var(--light-blue-bg)'; this.style.color='var(--secondary-blue)';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--dark-charcoal)';">
+                            <i class="bi bi-lock-fill"></i>
+                        </a>
                     {% endif %}
                 </div>
-
 
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4 mb-5">
+    <div class="{% block container_class %}container mt-4 mb-5{% endblock %}">
         {% block content %}
         {% endblock %}
     </div>

@@ -1,0 +1,185 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-10">
+        <!-- Main Header Card -->
+        <div class="card-custom p-4 p-md-5 mb-5 text-center text-lg-start position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--dark-navy) 0%, var(--secondary-blue) 100%); color: white; border: none;">
+            <div class="hero-bg-graphic" style="opacity: 0.1;"></div>
+            <div class="row align-items-center position-relative z-1">
+                <div class="col-lg-8">
+                    <span class="badge bg-white text-primary mb-3 px-3 py-1.5 fs-7 rounded-pill" style="color: var(--secondary-blue) !important; font-weight: 700;">Conferencia de Institutos Seculares de Argentina</span>
+                    <h1 class="display-5 fw-extrabold text-white mb-3 font-serif">Identidad, Camino y Presencia</h1>
+                    <p class="fs-5 opacity-90 mb-0">
+                        La vocación de consagrarse a Dios en medio de las realidades del mundo como fermento de amor, justicia y fraternidad.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <div style="width: 140px; height: 140px; margin: 0 auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));">
+                        {% include 'layouts/logo_svg.html' with class='w-100 h-100' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Canonical Definition & Essence -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-12">
+                <div class="hero-quote-box-compact bg-light-blue-bg border p-4 mb-4 text-center">
+                    <p class="fs-5 text-dark font-serif mb-2">
+                        “Un Instituto Secular es un Instituto de Vida Consagrada en el cual los fieles, viviendo en el mundo, aspiran a la perfección de la caridad, y se dedican a procurar la santificación del mundo sobre todo desde dentro de él.”
+                    </p>
+                    <span class="text-secondary small fw-bold">— Código de Derecho Canónico, c. 710</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-7">
+                <div class="card-custom p-4 p-md-5 h-100">
+                    <h3 class="font-serif text-dark mb-4 border-bottom pb-2">Una Vocación Joven y Providencial</h3>
+                    <p class="fs-6 text-secondary lh-lg mb-3">
+                        Los <strong>institutos seculares</strong> son una realidad todavía joven en la historia de la Iglesia. Surgen en la primera mitad del siglo XIX y son aprobados oficialmente por el Papa Pío XII en 1947 mediante la Constitución Apostólica <em>Provida Mater Ecclesia</em>, complementada posteriormente por el Motu Proprio <em>Primo Feliciter</em> en 1948.
+                    </p>
+                    <p class="fs-6 text-secondary lh-lg mb-3">
+                        Hasta entonces, todas las personas que deseaban consagrarse a Dios tenían que abandonar el mundo y entrar en religión (en una Orden o Congregación Religiosa). Con la llegada de los institutos seculares, los laicos que sienten este llamado pueden consagrarse a Dios a través de los consejos evangélicos de castidad, pobreza y obediencia, sin perder su condición laical, santificándose y transformando el mundo desde adentro.
+                    </p>
+                    <p class="fs-6 text-secondary lh-lg mb-0">
+                        Los institutos seculares, por tanto, aúnan de manera indisoluble dos realidades antes incompatibles: la <strong>secularidad</strong> (seguir siendo plenamente laicos o sacerdotes seculares) y la <strong>consagración total a Dios</strong> en medio de las actividades de la vida familiar, laboral y social ordinaria.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="card-custom p-4 p-md-5 bg-sunrise-gradient text-white h-100 d-flex flex-column justify-content-center border-0">
+                    <h4 class="font-serif mb-3 text-white fw-bold">Doble Dimensión</h4>
+                    
+                    <div class="d-flex align-items-start gap-3 mb-4">
+                        <div class="fs-2 text-warning"><i class="bi bi-globe"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1 text-white">Secularidad Plena</h6>
+                            <p class="small text-white-50 mb-0">
+                                Permanecer en las profesiones ordinarias (médicos, mecánicos, docentes, etc.), tejiendo la vida en las condiciones sociales comunes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-3 mb-0">
+                        <div class="fs-2 text-warning"><i class="bi bi-heart-fill"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1 text-white">Consagración Total</h6>
+                            <p class="small text-white-50 mb-0">
+                                Entrega incondicional a la voluntad del Padre mediante la vivencia profunda y estable de los consejos evangélicos en el mundo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Pontifical Quotes -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card-custom p-4 h-100 bg-white border-start border-4 border-primary">
+                    <p class="text-secondary font-serif lh-lg mb-3">
+                        “Es urgente conocer y dar a conocer esta vocación tan actual y tan urgente de personas que se consagren a Dios practicando los consejos evangélicos, y con tal consagración especial, se esfuerzan por impregnar toda su vida y todas sus actividades... trabajando por cambiar el mundo desde dentro.”
+                    </p>
+                    <span class="small text-dark fw-bold">— San Juan Pablo II, 3 de Mayo de 1983</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-custom p-4 h-100 bg-white border-start border-4 border-primary">
+                    <p class="text-secondary font-serif lh-lg mb-3">
+                        “Si permanecen fieles a su misión, los institutos seculares serán en estos tiempos tan difíciles, el laboratorio experimental en el cual la Iglesia verifica cuáles han de ser sus relaciones con el mundo.”
+                    </p>
+                    <span class="small text-dark fw-bold">— San Pablo VI, 25 de Marzo de 1976</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Presence in Argentina -->
+        <div class="card-custom p-4 p-md-5 mb-5">
+            <h3 class="font-serif text-dark mb-2 text-center text-md-start">Presencia en Argentina</h3>
+            <p class="text-secondary mb-4 text-center text-md-start">
+                Desde inicios del siglo XX ya existían en Argentina miembros de las llamadas Pías Uniones. En 1947, reciben el reconocimiento canónico oficial. A continuación se presentan los Institutos Seculares nacidos en tierra argentina:
+            </p>
+            
+            <div class="row g-4 mt-2">
+                <!-- Oblatos Diocesanos -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-4 border rounded-3 h-100 bg-light-grey-bg">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="fs-4 text-primary">🛡️</span>
+                            <h5 class="fw-bold mb-0 text-dark">Oblatos Diocesanos</h5>
+                        </div>
+                        <p class="small text-secondary lh-lg mb-0">
+                            <strong>Fundación:</strong> 15 de agosto de 1951<br>
+                            <strong>Fundador:</strong> Padre Agustín Elizalde<br>
+                            Rama masculina de consagrados consagrando el clero y las diócesis.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Oblatas Diocesanas -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-4 border rounded-3 h-100 bg-light-grey-bg">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="fs-4 text-primary">🛡️</span>
+                            <h5 class="fw-bold mb-0 text-dark">Oblatas Diocesanas</h5>
+                        </div>
+                        <p class="small text-secondary lh-lg mb-0">
+                            <strong>Fundación:</strong> 11 de febrero de 1954<br>
+                            <strong>Fundador:</strong> Padre Agustín Elizalde<br>
+                            Rama femenina dedicada al servicio y santificación de las comunidades diocesanas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Instituto Cristífero -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="p-4 border rounded-3 h-100 bg-light-grey-bg">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="fs-4 text-primary">🛡️</span>
+                            <h5 class="fw-bold mb-0 text-dark">Instituto Cristífero</h5>
+                        </div>
+                        <p class="small text-secondary lh-lg mb-0">
+                            <strong>Fundación:</strong> 22 de julio de 1957<br>
+                            <strong>Fundadores:</strong> Mons. Miguel Esteban Hesayne y Beatriz Abadía.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Misioneras de Jesucristo Sacerdote -->
+                <div class="col-md-6 col-lg-6">
+                    <div class="p-4 border rounded-3 h-100 bg-light-grey-bg">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="fs-4 text-primary">🛡️</span>
+                            <h5 class="fw-bold mb-0 text-dark">Misioneras de Jesucristo Sacerdote</h5>
+                        </div>
+                        <p class="small text-secondary lh-lg mb-0">
+                            <strong>Fundación:</strong> 8 de diciembre de 1958<br>
+                            <strong>Fundador:</strong> Mons. Eduardo Pironio (Beato Cardenal)<br>
+                            Consagradas dedicadas a cooperar activamente con los pastores e impregnar la sociedad del aroma sacerdotal de Cristo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fraternidad Franciscana -->
+                <div class="col-md-12 col-lg-6">
+                    <div class="p-4 border rounded-3 h-100 bg-light-grey-bg">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="fs-4 text-primary">🛡️</span>
+                            <h5 class="fw-bold mb-0 text-dark">Fraternidad Franciscana</h5>
+                        </div>
+                        <p class="small text-secondary lh-lg mb-0">
+                            <strong>Fundación:</strong> 13 de enero de 1975<br>
+                            <strong>Fundadoras:</strong> Grupo de Consagradas<br>
+                            Espiritualidad franciscana adaptada a la secularidad plena y la presencia evangelizadora desde la sencillez cotidiana.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
