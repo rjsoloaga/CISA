@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cisa-cache-v1';
+const CACHE_NAME = 'cisa-cache-v3';
 const urlsToCache = [
   '/',
   '/static/css/style.css', // Cambiado a style.css

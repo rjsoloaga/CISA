@@ -99,10 +99,6 @@
                         <a href="{% url 'users:logout_view' %}" class="btn btn-nav-outline">
                             Cerrar Sesión
                         </a>
-                    {% else %}
-                        <a href="{% url 'users:login_view' %}" class="nav-link text-secondary p-2 d-flex align-items-center justify-content-center border rounded-circle" style="width: 38px; height: 38px; transition: all 0.2s ease;" title="Acceso de Administrador" onmouseover="this.style.backgroundColor='var(--light-blue-bg)'; this.style.color='var(--secondary-blue)';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--dark-charcoal)';">
-                            <i class="bi bi-lock-fill"></i>
-                        </a>
                     {% endif %}
                 </div>
 
@@ -117,7 +113,7 @@
 
     <footer class="py-4 text-center mt-auto">
         <div class="container">
-            <p class="mb-1 text-dark fw-bold">&copy; 2026 CISA Argentina. Todos los derechos reservados.</p>
+            <p class="mb-1 text-dark fw-bold"><a href="{% url 'users:login_view' %}" style="display: inline-block; padding: 10px 14px; margin-right: 5px; color: inherit; text-decoration: none; cursor: pointer;">&copy;</a> 2026 CISA Argentina. Todos los derechos reservados.</p>
             <p class="mb-0 small text-muted font-serif">Construyendo comunidad, integrando personas.</p>
         </div>
     </footer>
