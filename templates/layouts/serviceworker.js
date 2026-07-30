@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cisa-cache-v3';
+const CACHE_NAME = 'cisa-cache-v4';
 const urlsToCache = [
   '/',
   '/static/css/style.css', // Cambiado a style.css
@@ -15,12 +15,10 @@ self.addEventListener('install', event => {
   );
 });
 
-// Escuchar peticiones para servir desde caché si no hay internet
+// Escuchar peticiones: Estrategia Network-First (Red con fallback a caché)
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+    fetch(event.request)
+      .catch(() => caches.match(event.request))
   );
 });

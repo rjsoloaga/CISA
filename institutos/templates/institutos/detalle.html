@@ -1,0 +1,257 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5 fade-in">
+    
+    <!-- Botón Volver (Superior) y Acciones Staff -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{% url 'institutos:listar' %}" class="btn btn-outline-secondary px-3 py-1.5" style="border-radius: 30px; font-weight: 600; font-size: 0.85rem;">
+            <i class="bi bi-arrow-left me-1"></i> Volver al Listado
+        </a>
+        
+        {% if user.is_staff %}
+            <div class="d-flex gap-2">
+                <a href="{% url 'institutos:instituto_editar' instituto.pk %}" class="btn btn-warning px-3 py-1.5 text-white" style="border-radius: 30px; font-weight: 600; font-size: 0.85rem;">
+                    <i class="bi bi-pencil-fill me-1"></i> Editar Instituto
+                </a>
+                <a href="{% url 'institutos:instituto_eliminar' instituto.pk %}" class="btn btn-danger px-3 py-1.5" style="border-radius: 30px; font-weight: 600; font-size: 0.85rem;">
+                    <i class="bi bi-trash-fill me-1"></i> Eliminar
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Encabezado Hero -->
+    <div class="card-custom mb-4 p-4 p-md-5 bg-sunrise-gradient text-white border-0 shadow" style="border-radius: 12px;">
+        <div class="row align-items-center g-4">
+            
+            <!-- Logo Column -->
+            <div class="col-12 col-md-3 text-center">
+                {% if instituto.logo %}
+                    <div class="bg-white p-3 rounded-circle shadow-sm d-inline-block" style="width: 140px; height: 140px;">
+                        <img src="{{ instituto.logo.url }}" alt="{{ instituto.nombre }}" class="img-fluid h-100" style="object-fit: contain;">
+                    </div>
+                {% else %}
+                    <div class="bg-white text-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center fw-bold" style="width: 140px; height: 140px; font-size: 4rem; margin: 0 auto;">
+                        🏢
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Meta details Column -->
+            <div class="col-12 col-md-9 text-center text-md-start">
+                <span class="badge bg-info text-dark mb-2 px-3 py-1.5 rounded-pill" style="font-weight: 700;">
+                    {{ instituto.get_tipo_instituto_display }}
+                </span>
+                <h1 class="display-5 fw-extrabold font-serif text-white mb-2">
+                    {{ instituto.nombre }}
+                    {% if instituto.sigla %}
+                        <span class="fs-2 opacity-75">({{ instituto.sigla }})</span>
+                    {% endif %}
+                </h1>
+                <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 mt-3 small opacity-90">
+                    {% if instituto.pais_origen %}
+                        <span>📍 <strong>Origen:</strong> {{ instituto.pais_origen }}</span>
+                    {% endif %}
+                    {% if instituto.anio_fundacion %}
+                        <span>📅 <strong>Fundación:</strong> {{ instituto.anio_fundacion }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Contenido en 4 Secciones -->
+    <div class="row g-4">
+        
+        <!-- Tarjeta 1: Identidad, Historia y Carisma -->
+        <div class="col-12 col-lg-8">
+            <div class="card border-0 shadow-sm card-custom h-100">
+                <div class="card-header bg-light py-3 px-4">
+                    <h5 class="mb-0 text-primary fw-bold font-serif"><i class="bi bi-file-text-fill me-2"></i>1. Identidad, Historia y Carisma</h5>
+                </div>
+                <div class="card-body p-4">
+                    
+                    {% if instituto.breve_descripcion %}
+                        <div class="mb-4 p-3 bg-light rounded" style="border-left: 4px solid var(--secondary-blue);">
+                            <h6 class="fw-bold text-dark mb-1">Descripción Breve</h6>
+                            <p class="text-secondary mb-0 small lh-base">{{ instituto.breve_descripcion }}</p>
+                        </div>
+                    {% endif %}
+
+                    {% if instituto.historia %}
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-dark mb-2">Historia e Hitos de Fundación</h6>
+                            <p class="text-secondary lh-lg small mb-0">{{ instituto.historia|linebreaks }}</p>
+                        </div>
+                    {% endif %}
+
+                    {% if instituto.carisma %}
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-dark mb-2">Carisma o Espiritualidad</h6>
+                            <p class="text-secondary lh-lg small mb-0">{{ instituto.carisma|linebreaks }}</p>
+                        </div>
+                    {% endif %}
+
+                    <!-- Fundador Info -->
+                    {% if instituto.fundador or instituto.foto_fundador %}
+                        <div class="border-top pt-4 mt-4">
+                            <h6 class="fw-bold text-dark mb-3">Fundación</h6>
+                            <div class="row g-3 align-items-center">
+                                {% if instituto.foto_fundador %}
+                                    <div class="col-12 col-sm-3 text-center text-sm-start">
+                                        <img src="{{ instituto.foto_fundador.url }}" alt="{{ instituto.fundador }}" class="rounded shadow-sm border p-1 img-fluid" style="max-height: 120px; object-fit: cover;">
+                                    </div>
+                                {% endif %}
+                                <div class="col-12 col-sm-9">
+                                    <div class="text-secondary mb-0 small lh-lg">
+                                        <strong>Fundador/a o Proceso Fundacional:</strong><br>
+                                        {{ instituto.fundador|default:"No especificado"|linebreaks }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Información Institucional -->
+        <div class="col-12 col-lg-4">
+            <div class="card border-0 shadow-sm card-custom mb-4">
+                <div class="card-header bg-light py-3 px-4">
+                    <h5 class="mb-0 text-primary fw-bold font-serif"><i class="bi bi-shield-fill-check me-2"></i>2. Información Institucional</h5>
+                </div>
+                <div class="card-body p-4">
+                    <ul class="list-unstyled mb-0 small lh-lg">
+                        
+                        <li class="mb-3">
+                            <strong class="text-dark d-block">Responsable General:</strong>
+                            <span class="text-secondary">{{ instituto.responsable|default:"Sin especificar" }}</span>
+                        </li>
+
+                        {% if instituto.consejo_gobierno %}
+                            <li class="mb-3">
+                                <strong class="text-dark d-block">Consejo o Equipo de Gobierno:</strong>
+                                <span class="text-secondary">{{ instituto.consejo_gobierno|linebreaksbr }}</span>
+                            </li>
+                        {% endif %}
+
+                        <li class="mb-3">
+                            <strong class="text-dark d-block">Número de Miembros:</strong>
+                            <span class="text-secondary">{{ instituto.numero_miembros|default:"Sin especificar" }}</span>
+                        </li>
+
+                        {% if instituto.paises_presencia %}
+                            <li class="mb-0">
+                                <strong class="text-dark d-block">Países con presencia:</strong>
+                                <span class="text-secondary">{{ instituto.paises_presencia|linebreaksbr }}</span>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3: Presencia en Argentina -->
+            <div class="card border-0 shadow-sm card-custom">
+                <div class="card-header bg-light py-3 px-4">
+                    <h5 class="mb-0 text-primary fw-bold font-serif"><i class="bi bi-geo-fill me-2"></i>3. Presencia en Argentina</h5>
+                </div>
+                <div class="card-body p-4">
+                    <ul class="list-unstyled mb-0 small lh-lg">
+                        
+                        <li class="mb-3">
+                            <strong class="text-dark d-block">Año de llegada a Argentina:</strong>
+                            <span class="text-secondary">{{ instituto.anio_llegada_argentina|default:"Sin especificar" }}</span>
+                        </li>
+
+                        {% if instituto.tipo_presencia %}
+                            <li class="mb-3">
+                                <strong class="text-dark d-block">Tipo de Presencia:</strong>
+                                <span class="text-secondary">{{ instituto.tipo_presencia }}</span>
+                            </li>
+                        {% endif %}
+
+                        {% if instituto.provincias_diocesis %}
+                            <li class="mb-3">
+                                <strong class="text-dark d-block">Provincias o Diócesis:</strong>
+                                <span class="text-secondary">{{ instituto.provincias_diocesis|linebreaksbr }}</span>
+                            </li>
+                        {% endif %}
+
+                        {% if instituto.casas_comunidades %}
+                            <li class="mb-0">
+                                <strong class="text-dark d-block">Casas, Comunidades u Obras:</strong>
+                                <span class="text-secondary">{{ instituto.casas_comunidades|linebreaksbr }}</span>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 4: Contacto y Redes -->
+        <div class="col-12">
+            <div class="card border-0 shadow-sm card-custom">
+                <div class="card-header bg-light py-3 px-4">
+                    <h5 class="mb-0 text-primary fw-bold font-serif"><i class="bi bi-telephone-inbound-fill me-2"></i>4. Información de Contacto</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        
+                        <!-- Dirección -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <strong class="text-dark d-block small mb-1">📍 Dirección / Ubicaciones:</strong>
+                            <p class="text-secondary small mb-0">{{ instituto.direccion|default:"No especificada"|linebreaksbr }}</p>
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <strong class="text-dark d-block small mb-1">📞 Teléfonos / Referentes:</strong>
+                            <p class="text-secondary small mb-0">{{ instituto.telefono|default:"No especificado"|linebreaksbr }}</p>
+                        </div>
+
+                        <!-- Email y Web -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <strong class="text-dark d-block small mb-1">✉️ Email Oficial:</strong>
+                            {% if instituto.email %}
+                                <a href="mailto:{{ instituto.email }}" class="text-decoration-none text-primary small d-block mb-3">{{ instituto.email }}</a>
+                            {% else %}
+                                <span class="text-muted small d-block mb-3">No especificado</span>
+                            {% endif %}
+
+                            <strong class="text-dark d-block small mb-1">🌐 Sitio Web Oficial:</strong>
+                            {% if instituto.website %}
+                                <a href="{{ instituto.website }}" target="_blank" class="text-decoration-none text-primary small d-block">{{ instituto.website }}</a>
+                            {% else %}
+                                <span class="text-muted small d-block">No especificado</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Redes Sociales -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <strong class="text-dark d-block small mb-1">📱 Redes Sociales:</strong>
+                            <p class="text-secondary small mb-0">{{ instituto.redes_sociales|default:"No especificadas"|linebreaksbr }}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Botón Volver (Inferior) -->
+    <div class="text-center mt-5">
+        <a href="{% url 'institutos:listar' %}" class="btn btn-secondary px-4 py-2" style="border-radius: 30px; font-weight: 600;">
+            <i class="bi bi-arrow-left-circle me-1"></i> Volver al listado completo
+        </a>
+    </div>
+
+</div>
+{% endblock %}

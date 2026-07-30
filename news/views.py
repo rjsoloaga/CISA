@@ -41,8 +41,12 @@ def noticias_eliminar(request, pk):
 
 
 def vista_home(request):
-    lista_noticias = news.objects.all().order_by('-fecha')
+    lista_noticias = news.objects.all().order_by('-fecha')[:3]
     return render(request, 'news/home.html', {'noticias': lista_noticias})
+
+def listar_noticias(request):
+    lista_noticias = news.objects.all().order_by('-fecha')
+    return render(request, 'news/news.html', {'noticias': lista_noticias})
 
 
 def vista_noticia_detalle(request, pk):

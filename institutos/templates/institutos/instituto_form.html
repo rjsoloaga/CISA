@@ -3,32 +3,25 @@
 
 {% block content %}
 <div class="row justify-content-center fade-in">
-    <div class="col-lg-10 col-xl-8">
-        <div class="card-custom">
-            <!-- Header with Albiceleste Gradient -->
-            <div class="card-custom-header bg-sunrise-gradient text-white d-flex align-items-center justify-content-between p-4">
+    <div class="col-lg-10 col-xl-9">
+        <div class="card-custom mb-5">
+            
+            <!-- Encabezado con alto contraste -->
+            <div class="card-custom-header bg-sunrise-gradient text-white d-flex align-items-center justify-content-between p-4" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
                 <div>
-                    <h3 class="mb-1 text-white font-serif">
-                        {% if instituto %}
-                            Modificar Instituto
-                        {% else %}
-                            Nuevo Instituto
-                        {% endif %}
-                    </h3>
-                    <p class="mb-0 text-white-50 small">
-                        {% if instituto %}
-                            Actualiza la información del instituto seleccionado.
-                        {% else %}
-                            Completa el formulario para registrar un nuevo instituto.
-                        {% endif %}
+                    <h2 class="mb-1 text-white font-serif fw-bold">
+                        {{ titulo_pagina }}
+                    </h2>
+                    <p class="mb-0 text-white opacity-80 small">
+                        Complete los datos del formulario organizados por secciones.
                     </p>
                 </div>
-                <div class="fs-2 text-white-50">
+                <div class="fs-1 opacity-70">
                     🏢
                 </div>
             </div>
 
-            <!-- Form Body -->
+            <!-- Cuerpo del Formulario -->
             <div class="card-body p-4 p-md-5">
                 {% if form.non_field_errors %}
                     <div class="alert alert-danger shadow-sm mb-4" role="alert">
@@ -43,178 +36,372 @@
                     </div>
                 {% endif %}
 
-                <form method="post" enctype="multipart/form-data" novalidate>
+                <form method="POST" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
 
-                    <div class="row g-4">
-                        <!-- Nombre del Instituto -->
-                        <div class="col-md-8">
-                            <label for="{{ form.nombre.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.nombre.label }}
-                            </label>
-                            {{ form.nombre }}
-                            {% if form.nombre.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.nombre.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                    <!-- 1️⃣ Datos Básicos e Identidad -->
+                    <div class="mb-5">
+                        <h5 class="text-primary border-bottom pb-2 mb-3 fw-bold font-serif">
+                            1️⃣ Datos Básicos e Identidad
+                        </h5>
+                        <div class="row g-3">
+                            <!-- Nombre -->
+                            <div class="col-12 col-md-8">
+                                <label for="{{ form.nombre.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.nombre.label }}
+                                </label>
+                                {{ form.nombre }}
+                                {% if form.nombre.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.nombre.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Rama -->
-                        <div class="col-md-4">
-                            <label for="{{ form.rama.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.rama.label }}
-                            </label>
-                            {{ form.rama }}
-                            {% if form.rama.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.rama.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Sigla -->
+                            <div class="col-12 col-md-4">
+                                <label for="{{ form.sigla.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.sigla.label }}
+                                </label>
+                                {{ form.sigla }}
+                                {% if form.sigla.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.sigla.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Responsable -->
-                        <div class="col-md-6">
-                            <label for="{{ form.responsable.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.responsable.label }}
-                            </label>
-                            {{ form.responsable }}
-                            {% if form.responsable.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.responsable.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Logo -->
+                            <div class="col-12 col-md-6">
+                                <label for="{{ form.logo.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.logo.label }}
+                                </label>
+                                {{ form.logo }}
+                                {% if form.logo.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.logo.errors }}
+                                    </div>
+                                {% endif %}
+                                {% if instituto and instituto.logo %}
+                                    <div class="mt-2 small d-flex align-items-center gap-2 text-secondary">
+                                        <span class="text-muted">Logo actual:</span>
+                                        <img src="{{ instituto.logo.url }}" alt="Logo" class="rounded border p-1" style="height: 35px; width: 35px; object-fit: cover;">
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Logo -->
-                        <div class="col-md-6">
-                            <label for="{{ form.logo.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.logo.label }}
-                            </label>
-                            {{ form.logo }}
-                            {% if form.logo.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.logo.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if instituto and instituto.logo %}
-                                <div class="mt-2 small d-flex align-items-center gap-2 text-secondary">
-                                    <span class="text-muted">Logo actual:</span>
-                                    <img src="{{ instituto.logo.url }}" alt="Logo" class="rounded border p-1" style="height: 35px; width: 35px; object-fit: cover;">
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Breve Descripción -->
+                            <div class="col-12">
+                                <label for="{{ form.breve_descripcion.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.breve_descripcion.label }}
+                                </label>
+                                {{ form.breve_descripcion }}
+                                {% if form.breve_descripcion.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.breve_descripcion.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Dirección -->
-                        <div class="col-md-6">
-                            <label for="{{ form.direccion.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.direccion.label }}
-                            </label>
-                            {{ form.direccion }}
-                            {% if form.direccion.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.direccion.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Historia -->
+                            <div class="col-12">
+                                <label for="{{ form.historia.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.historia.label }}
+                                </label>
+                                {{ form.historia }}
+                                {% if form.historia.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.historia.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Teléfono -->
-                        <div class="col-md-6">
-                            <label for="{{ form.telefono.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.telefono.label }}
-                            </label>
-                            {{ form.telefono }}
-                            {% if form.telefono.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.telefono.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Carisma -->
+                            <div class="col-12">
+                                <label for="{{ form.carisma.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.carisma.label }}
+                                </label>
+                                {{ form.carisma }}
+                                {% if form.carisma.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.carisma.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Email -->
-                        <div class="col-md-6">
-                            <label for="{{ form.email.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.email.label }}
-                            </label>
-                            {{ form.email }}
-                            {% if form.email.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.email.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Fundador -->
+                            <div class="col-12">
+                                <label for="{{ form.fundador.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.fundador.label }}
+                                </label>
+                                {{ form.fundador }}
+                                {% if form.fundador.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.fundador.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Sitio Web -->
-                        <div class="col-md-6">
-                            <label for="{{ form.website.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.website.label }}
-                            </label>
-                            {{ form.website }}
-                            {% if form.website.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.website.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Foto Fundador -->
+                            <div class="col-12 col-md-6">
+                                <label for="{{ form.foto_fundador.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.foto_fundador.label }}
+                                </label>
+                                {{ form.foto_fundador }}
+                                {% if form.foto_fundador.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.foto_fundador.errors }}
+                                    </div>
+                                {% endif %}
+                                {% if instituto and instituto.foto_fundador %}
+                                    <div class="mt-2 small d-flex align-items-center gap-2 text-secondary">
+                                        <span class="text-muted">Foto actual:</span>
+                                        <img src="{{ instituto.foto_fundador.url }}" alt="Foto Fundador" class="rounded border p-1" style="height: 35px; width: 35px; object-fit: cover;">
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Fundador -->
-                        <div class="col-md-6">
-                            <label for="{{ form.fundador.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.fundador.label }}
-                            </label>
-                            {{ form.fundador }}
-                            {% if form.fundador.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.fundador.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
+                            <!-- Año Fundación -->
+                            <div class="col-12 col-md-3">
+                                <label for="{{ form.anio_fundacion.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.anio_fundacion.label }}
+                                </label>
+                                {{ form.anio_fundacion }}
+                                {% if form.anio_fundacion.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.anio_fundacion.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-                        <!-- Carisma -->
-                        <div class="col-md-6">
-                            <label for="{{ form.carisma.id_for_label }}" class="form-label fw-bold text-dark">
-                                {{ form.carisma.label }}
-                            </label>
-                            {{ form.carisma }}
-                            {% if form.carisma.errors %}
-                                <div class="text-danger small mt-1">
-                                    {% for error in form.carisma.errors %}
-                                        <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
+                            <!-- País Origen -->
+                            <div class="col-12 col-md-3">
+                                <label for="{{ form.pais_origen.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.pais_origen.label }}
+                                </label>
+                                {{ form.pais_origen }}
+                                {% if form.pais_origen.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.pais_origen.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2️⃣ Información Institucional -->
+                    <div class="mb-5">
+                        <h5 class="text-primary border-bottom pb-2 mb-3 fw-bold font-serif">
+                            2️⃣ Información Institucional
+                        </h5>
+                        <div class="row g-3">
+                            <!-- Tipo de Instituto -->
+                            <div class="col-12 col-md-6">
+                                <label for="{{ form.tipo_instituto.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.tipo_instituto.label }}
+                                </label>
+                                {{ form.tipo_instituto }}
+                                {% if form.tipo_instituto.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.tipo_instituto.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Responsable -->
+                            <div class="col-12 col-md-6">
+                                <label for="{{ form.responsable.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.responsable.label }}
+                                </label>
+                                {{ form.responsable }}
+                                {% if form.responsable.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.responsable.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Consejo Gobierno -->
+                            <div class="col-12">
+                                <label for="{{ form.consejo_gobierno.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.consejo_gobierno.label }}
+                                </label>
+                                {{ form.consejo_gobierno }}
+                                {% if form.consejo_gobierno.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.consejo_gobierno.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Número Miembros -->
+                            <div class="col-12 col-md-6">
+                                <label for="{{ form.numero_miembros.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.numero_miembros.label }}
+                                </label>
+                                {{ form.numero_miembros }}
+                                {% if form.numero_miembros.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.numero_miembros.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Países Presencia -->
+                            <div class="col-12">
+                                <label for="{{ form.paises_presencia.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.paises_presencia.label }}
+                                </label>
+                                {{ form.paises_presencia }}
+                                {% if form.paises_presencia.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.paises_presencia.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3️⃣ Presencia en Argentina -->
+                    <div class="mb-5">
+                        <h5 class="text-primary border-bottom pb-2 mb-3 fw-bold font-serif">
+                            3️⃣ Presencia en Argentina
+                        </h5>
+                        <div class="row g-3">
+                            <!-- Año Llegada Argentina -->
+                            <div class="col-12 col-md-4">
+                                <label for="{{ form.anio_llegada_argentina.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.anio_llegada_argentina.label }}
+                                </label>
+                                {{ form.anio_llegada_argentina }}
+                                {% if form.anio_llegada_argentina.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.anio_llegada_argentina.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Tipo Presencia -->
+                            <div class="col-12 col-md-8">
+                                <label for="{{ form.tipo_presencia.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.tipo_presencia.label }}
+                                </label>
+                                {{ form.tipo_presencia }}
+                                {% if form.tipo_presencia.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.tipo_presencia.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Provincias Diócesis -->
+                            <div class="col-12">
+                                <label for="{{ form.provincias_diocesis.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.provincias_diocesis.label }}
+                                </label>
+                                {{ form.provincias_diocesis }}
+                                {% if form.provincias_diocesis.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.provincias_diocesis.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Casas Comunidades -->
+                            <div class="col-12">
+                                <label for="{{ form.casas_comunidades.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.casas_comunidades.label }}
+                                </label>
+                                {{ form.casas_comunidades }}
+                                {% if form.casas_comunidades.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.casas_comunidades.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4️⃣ Información de Contacto -->
+                    <div class="mb-5">
+                        <h5 class="text-primary border-bottom pb-2 mb-3 fw-bold font-serif">
+                            4️⃣ Información de Contacto
+                        </h5>
+                        <div class="row g-3">
+                            <!-- Dirección -->
+                            <div class="col-12">
+                                <label for="{{ form.direccion.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.direccion.label }}
+                                </label>
+                                {{ form.direccion }}
+                                {% if form.direccion.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.direccion.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Teléfono -->
+                            <div class="col-12">
+                                <label for="{{ form.telefono.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.telefono.label }}
+                                </label>
+                                {{ form.telefono }}
+                                {% if form.telefono.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.telefono.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-12 col-md-4">
+                                <label for="{{ form.email.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.email.label }}
+                                </label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.email.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Sitio Web -->
+                            <div class="col-12 col-md-4">
+                                <label for="{{ form.website.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.website.label }}
+                                </label>
+                                {{ form.website }}
+                                {% if form.website.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.website.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Redes Sociales -->
+                            <div class="col-12 col-md-4">
+                                <label for="{{ form.redes_sociales.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.redes_sociales.label }}
+                                </label>
+                                {{ form.redes_sociales }}
+                                {% if form.redes_sociales.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.redes_sociales.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
 
                     <!-- Botones de Acción -->
-                    <div class="d-flex flex-wrap gap-3 justify-content-end mt-5 pt-4 border-top">
-                        <a href="{% url 'institutos:listar' %}" class="btn btn-outline-sunrise">
-                            Cancelar y Volver
+                    <div class="d-flex justify-content-end gap-3 mt-4 pt-4 border-top">
+                        <a href="{% url 'institutos:listar' %}" class="btn btn-outline-secondary px-4">
+                            Cancelar
                         </a>
-                        <button type="submit" class="btn btn-primary-sunrise">
-                            {% if instituto %}
-                                Guardar Cambios
-                            {% else %}
-                                Registrar Instituto
-                            {% endif %}
+                        <button type="submit" class="btn btn-primary px-4" style="background-color: var(--secondary-blue); border-color: var(--secondary-blue);">
+                            Guardar Instituto
                         </button>
                     </div>
                 </form>
