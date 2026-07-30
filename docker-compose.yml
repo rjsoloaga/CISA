@@ -18,6 +18,7 @@ services:
   web:
     build: .
     container_name: django_app
+    restart: always
     command: >
       sh -c "while ! python -c \"import socket; s = socket.socket(); s.connect(('db', 3306))\" 2>/dev/null; do echo 'Esperando a la base de datos...'; sleep 1; done &&
              python manage.py migrate &&
