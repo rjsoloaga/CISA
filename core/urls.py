@@ -19,6 +19,7 @@ urlpatterns = [
         content_type='application/javascript'
     ), name='serviceworker'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('institucional/', include('institucional.urls')),
 ]
 
 if settings.DEBUG:
