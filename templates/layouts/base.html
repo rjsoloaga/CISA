@@ -78,8 +78,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'news:noticias_listar' %}#noticias">Noticias</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'detalle_institucional' %}">Contacto</a>
+                        <a class="nav-link" href="{% url 'detalle_institucional' %}">Institucional</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:contacto' %}">Contacto</a>
+                   
                     </li>
                     {% if user.is_authenticated %}
                         {% if user.is_staff %}

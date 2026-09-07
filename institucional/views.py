@@ -22,3 +22,4 @@ def editar_institucional(request):
 def detalle_institucional(request):
     institucional = InformacionInstitucional.objects.first()
     return render(request, 'institucional/institucional_detalle.html', {'institucional': institucional})
+
