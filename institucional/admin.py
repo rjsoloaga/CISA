@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import InformacionInstitucional
+from .models import Autoridad
 
-@admin.register(InformacionInstitucional)
-class InformacionInstitucionalAdmin(admin.ModelAdmin):
-    list_display = ('nombre_presidente', 'correo', 'telefono', 'actualizado_el')
+@admin.register(Autoridad)
+class AutoridadAdmin(admin.ModelAdmin):
+    list_display = ('cargo', 'nombre_completo', 'orden')
+    list_editable = ('orden',)
+    search_fields = ('cargo', 'nombre_completo')

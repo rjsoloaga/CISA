@@ -1,6 +1,9 @@
-from .models import InformacionInstitucional
-
 def contacto_institucional(request):
     return {
-        'institucional_global': InformacionInstitucional.objects.first()
+        'institucional_global': None
+    }
+
+def datos_institucionales(request):
+    return {
+        'institucional_global': None
     }

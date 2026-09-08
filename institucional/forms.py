@@ -1,13 +1,26 @@
 from django import forms
-from .models import InformacionInstitucional
+from .models import Autoridad
 
-class InformacionInstitucionalForm(forms.ModelForm):
+class AutoridadForm(forms.ModelForm):
     class Meta:
-        model = InformacionInstitucional
-        fields = ['nombre_presidente', 'correo', 'telefono', 'direccion']
+        model = Autoridad
+        fields = ['cargo', 'nombre_completo', 'orden']
+        labels = {
+            'cargo': 'Cargo / Rol',
+            'nombre_completo': 'Nombre y Apellido',
+            'orden': 'Orden de jerarquía',
+        }
         widgets = {
-            'nombre_presidente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej. Juan Pérez'}),
-            'correo': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'contacto@asociacion.org'}),
-            'telefono': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+54 362 4000000'}),
-            'direccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Calle Falsa 123'}),
+            'cargo': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ej: Presidente/a, Vicepresidente/a, Secretario/a'
+            }),
+            'nombre_completo': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ej: Juan Pérez'
+            }),
+            'orden': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': '1'
+            }),
         }
