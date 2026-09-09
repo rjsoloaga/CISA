@@ -91,7 +91,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'institucional.context_processors.contacto_institucional',  # Context processor para información institucional
+                'institucional.context_processors.contacto_institucional',
+                'news.context_processors.datos_contacto_global',
             ],
 
         },

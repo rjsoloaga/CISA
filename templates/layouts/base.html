@@ -42,10 +42,11 @@
                 <span><i class="bi bi-envelope-fill"></i> {{ institucional_global.correo|default:"contacto@cisa.org.ar" }}</span>
             </div>
             <div class="social-links d-flex gap-3">
-                <a href="#" class="social-icon-link"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="social-icon-link"><i class="bi bi-twitter-x"></i></a>
-                <a href="#" class="social-icon-link"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="social-icon-link"><i class="bi bi-youtube"></i></a>
+                {% for red in redes_globales %}
+                   <a href="{{ red.url }}" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none" title="{{ red.nombre }}">
+                      <i class="bi {{ red.icono }} fs-5"></i>
+                   </a>
+                {% endfor %}
             </div>
         </div>
     </div>
