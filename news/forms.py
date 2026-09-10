@@ -1,3 +1,4 @@
+from django.forms import widgets
 from django import forms
 from .models import news
 
@@ -15,3 +16,9 @@ class NoticiaForm(forms.ModelForm):
             'fecha_evento': forms.DateInput(attrs={'class': 'form-control form-control-custom', 'type': 'date'}),
             'hora_evento': forms.TimeInput(attrs={'class': 'form-control form-control-custom', 'type': 'time'}),
         }
+
+class ContactoForm(forms.Form):
+    nombreCompleto = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: Juan Perez'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: juanperez@email.com'}))
+    asunto = forms.CharField(max_length=150,widget=forms.TextInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: Solicitar informacion de ...'}))
+    mensaje = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-custom','rows': 4,'placeholder': 'Escriba aqui su mensaje...'}))

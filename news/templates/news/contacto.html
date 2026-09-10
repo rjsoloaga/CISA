@@ -52,37 +52,62 @@
     <!-- Form column -->
     <div class="col-md-7 mb-4">
         <div class="card-custom h-100 p-4 p-md-5">
-            {% if success %}
-                <div class="text-center py-5">
-                    <div class="fs-1 mb-3">✉️</div>
-                    <h3 class="font-serif text-sunrise-gradient mb-3">¡Mensaje Enviado con Éxito!</h3>
-                    <p class="text-secondary mb-4">
-                        Gracias por comunicarte con CISA. Tu consulta ha sido recibida y nuestro equipo administrativo te responderá al correo electrónico proporcionado a la brevedad.
-                    </p>
-                    <a href="{% url 'news:home' %}" class="btn btn-primary-sunrise rounded-pill px-4">Volver al Inicio</a>
-                </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text-center py-5">
+                        <div class="fs-1 mb-3">✉️</div>
+                        <h3 class="font-serif text-sunrise-gradient mb-3">¡Mensaje Enviado con Éxito!</h3>
+                        <p class="text-secondary mb-4">
+                            {{ message }}
+                        </p>
+                        <a href="{% url 'news:home' %}" class="btn btn-primary-sunrise rounded-pill px-4">Volver al Inicio</a>
+                    </div>
+                {% endfor %}
             {% else %}
                 <h3 class="font-serif mb-4 text-dark">Envíanos un Mensaje</h3>
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger mb-4">
+                        Por favor, revisá los datos ingresados en el formulario.
+                    </div>
+                {% endif %}
+
                 <form method="post" action="{% url 'news:contacto' %}">
                     {% csrf_token %}
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="nombre" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control form-control-custom" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+                            <label for="{{ form.nombreCompleto.id_for_label }}" class="form-label">Nombre Completo</label>
+                            {{ form.nombreCompleto }}
+                            {% if form.nombreCompleto.errors %}
+                                <div class="text-danger small mt-1">{{ form.nombreCompleto.errors.0 }}</div>
+                            {% endif %}
                         </div>
+
                         <div class="col-md-6 mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control form-control-custom" id="email" name="email" placeholder="Ej: juan@email.com" required>
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Correo Electrónico</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                            {% endif %}
                         </div>
+
                         <div class="col-12 mb-3">
-                            <label for="asunto" class="form-label">Asunto</label>
-                            <input type="text" class="form-control form-control-custom" id="asunto" name="asunto" placeholder="Ej: Consulta sobre Talleres" required>
+                            <label for="{{ form.asunto.id_for_label }}" class="form-label">Asunto</label>
+                            {{ form.asunto }}
+                            {% if form.asunto.errors %}
+                                <div class="text-danger small mt-1">{{ form.asunto.errors.0 }}</div>
+                            {% endif %}
                         </div>
+
                         <div class="col-12 mb-4">
-                            <label for="mensaje" class="form-label">Mensaje</label>
-                            <textarea class="form-control form-control-custom" id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu consulta aquí..." required></textarea>
+                            <label for="{{ form.mensaje.id_for_label }}" class="form-label">Mensaje</label>
+                            {{ form.mensaje }}
+                            {% if form.mensaje.errors %}
+                                <div class="text-danger small mt-1">{{ form.mensaje.errors.0 }}</div>
+                            {% endif %}
                         </div>
+
                         <div class="col-12 text-end">
                             <button type="submit" class="btn btn-primary-sunrise px-5 py-2.5 rounded-pill shadow-sm">
                                 Enviar Consulta &rarr;
