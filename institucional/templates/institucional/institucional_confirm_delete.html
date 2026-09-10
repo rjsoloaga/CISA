@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 overflow-hidden" style="border-radius: 12px;">
+                <div class="p-4 bg-danger text-white">
+                    <h4 class="mb-1 fw-bold text-white d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar Eliminación
+                    </h4>
+                    <p class="mb-0 text-white-50 small">Esta acción quitará a la persona de la nómina oficial</p>
+                </div>
+                
+                <div class="card-body p-4 bg-white">
+                    <p class="fs-6 text-secondary mb-3">
+                        ¿Estás seguro de que deseas eliminar permanentemente a esta autoridad?
+                    </p>
+                    
+                    <div class="p-3 mb-4 rounded border bg-light">
+                        <div class="mb-2">
+                            <span class="text-muted small text-uppercase fw-semibold d-block">Cargo / Rol</span>
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle fs-6">
+                                {{ autoridad.cargo }}
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase fw-semibold d-block">Nombre Completo</span>
+                            <span class="fs-5 fw-bold text-dark">{{ autoridad.nombre_completo }}</span>
+                        </div>
+                    </div>
+
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                            <a href="{% url 'detalle_institucional' %}" class="btn btn-secondary px-3">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger px-4 fw-semibold">
+                                Eliminar Definitivamente
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

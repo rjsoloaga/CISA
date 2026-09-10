@@ -1,0 +1,76 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<!-- Encabezado con Dark Navy institucional -->
+<div class="p-4 p-md-5 text-white" style="background-color: var(--dark-navy, #18314f);">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <h2 class="display-6 fw-bold mb-1 text-white">Información Institucional</h2>
+            <p class="mb-0 text-white-50">Comisión Directiva y Autoridades de CISA</p>
+        </div>
+        {% if user.is_authenticated and user.is_staff %}
+            <a href="{% url 'crear_autoridad' %}" class="btn btn-success shadow-sm d-inline-flex align-items-center">
+                <i class="bi bi-plus-circle me-2"></i> Agregar Autoridad
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+        <div class="card-body p-4 p-md-5 bg-white">
+            <h4 class="fw-bold mb-4 text-dark border-bottom pb-2">Autoridades Actuales</h4>
+
+            {% if autoridades %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" style="width: 35%;">Cargo</th>
+                                <th scope="col" style="width: 45%;">Nombre y Apellido</th>
+                                {% if user.is_authenticated and user.is_staff %}
+                                    <th scope="col" class="text-end" style="width: 20%;">Acciones</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for aut in autoridades %}
+                                <tr>
+                                    <td>
+                                        <span class="badge fs-6 px-3 py-2" style="background-color: var(--light-blue-bg, #e7f5ff); color: var(--dark-navy, #18314f); border: 1px solid rgba(116, 192, 252, 0.4);">
+                                          {{ aut.cargo }}
+                                       </span>
+                                    </td>
+                                    <td class="fs-5 fw-semibold text-dark">
+                                        {{ aut.nombre_completo }}
+                                    </td>
+                                    {% if user.is_authenticated and user.is_staff %}
+                                        <td class="text-end">
+                                            <div class="btn-group" role="group">
+                                                <a href="{% url 'editar_autoridad' aut.pk %}" class="btn btn-sm btn-outline-warning" title="Modificar">
+                                                    <i class="bi bi-pencil-square"></i> Modificar
+                                                </a>
+                                                <a href="{% url 'eliminar_autoridad' aut.pk %}" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-people display-4 d-block mb-3 opacity-50"></i>
+                    <p class="fs-5 mb-3">No hay autoridades registradas en este momento.</p>
+                    {% if user.is_authenticated and user.is_staff %}
+                        <a href="{% url 'crear_autoridad' %}" class="btn btn-primary">
+                            Cargar primera autoridad
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,8 @@
 from django.forms import widgets
 from django import forms
-from .models import news
+from .models import  news,InformacionContacto,RedSocial,DatoContactoAdicional
+from .models import DatoContactoAdicional
+
 
 class NoticiaForm(forms.ModelForm):
 
@@ -22,3 +24,52 @@ class ContactoForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: juanperez@email.com'}))
     asunto = forms.CharField(max_length=150,widget=forms.TextInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: Solicitar informacion de ...'}))
     mensaje = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-custom','rows': 4,'placeholder': 'Escriba aqui su mensaje...'}))
+
+class InformacionContactoForm(forms.ModelForm):
+    class Meta:
+        model = InformacionContacto
+        fields = ['correo', 'direccion', 'telefono', 'whatsapp', 'horario_atencion']
+        labels = {
+            'correo': 'Correo Electrónico',
+            'direccion': 'Dirección Central',
+            'telefono': 'Teléfono Fijo',
+            'whatsapp': 'WhatsApp (Ej: +54 9 11 4567 8901)',
+            'horario_atencion': 'Horario de Atención',
+        }
+        widgets = {
+            'correo': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'contacto@cisa.org.ar'}),
+            'direccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Av. General Paz 7890...'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+54 (11) 4567-8901'}),
+            'whatsapp': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+54 (11) 4567-8901'}),
+            'horario_atencion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Lunes a Viernes de 9:00 a 18:00 hs.'}),
+        }
+
+class RedSocialForm(forms.ModelForm):
+    class Meta:
+        model = RedSocial
+        fields = ['nombre', 'url', 'icono', 'orden']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Instagram'}),
+            'url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://...'}),
+            'icono': forms.Select(attrs={'class': 'form-select'}),
+            'orden': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '1'}),
+        }
+
+class DatoContactoAdicionalForm(forms.ModelForm):
+    class Meta:
+        model = DatoContactoAdicional
+        fields = ['etiqueta', 'valor', 'tipo', 'icono', 'orden']
+        labels = {
+            'etiqueta': 'Nombre del Registro (Ej: Sede Anexo, Correo Secundario)',
+            'valor': 'Contenido o Valor',
+            'tipo': 'Tipo de Dato',
+            'icono': 'Ícono',
+            'orden': 'Orden de Visualización',
+        }
+        widgets = {
+            'etiqueta': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Sede Anexo'}),
+            'valor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Sarmiento 123 o anexo@cisa.org.ar'}),
+            'tipo': forms.Select(attrs={'class': 'form-select'}),
+            'icono': forms.Select(attrs={'class': 'form-select'}),
+            'orden': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '1'}),
+        }

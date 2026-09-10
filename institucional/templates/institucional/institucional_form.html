@@ -1,0 +1,58 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card shadow-sm border-0 overflow-hidden" style="border-radius: 12px;">
+                <!-- Encabezado de la tarjeta -->
+                <div class="p-4 text-white" style="background-color: var(--dark-navy, #18314f);">
+                     <h4 class="mb-1 fw-bold text-white">{{ accion|default:"Gestionar" }} Autoridad</h4>
+                     <p class="mb-0 text-white-50 small">Cargue los miembros de la comisión directiva</p>
+                </div>
+                
+                <div class="card-body p-4 bg-white">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="{{ form.cargo.id_for_label }}" class="form-label fw-semibold text-dark">Cargo / Rol:</label>
+                            {{ form.cargo }}
+                            {% if form.cargo.errors %}
+                                <div class="text-danger small mt-1">{{ form.cargo.errors.0 }}</div>
+                            {% endif %}
+                            <div class="form-text text-muted">Ej: Presidente/a, Vicepresidente/a, Secretario/a, Tesorero/a.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.nombre_completo.id_for_label }}" class="form-label fw-semibold text-dark">Nombre y Apellido:</label>
+                            {{ form.nombre_completo }}
+                            {% if form.nombre_completo.errors %}
+                                <div class="text-danger small mt-1">{{ form.nombre_completo.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="{{ form.orden.id_for_label }}" class="form-label fw-semibold text-dark">Orden de visualización:</label>
+                            {{ form.orden }}
+                            {% if form.orden.errors %}
+                                <div class="text-danger small mt-1">{{ form.orden.errors.0 }}</div>
+                            {% endif %}
+                            <div class="form-text text-muted">Usa 1 para Presidente, 2 para Vice, 3 para Secretario, etc.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                            <a href="{% url 'detalle_institucional' %}" class="btn btn-secondary">Cancelar</a>
+                            
+                            <!-- Botón guardar -->
+                            <button type="submit" class="btn text-white px-4 fw-semibold" style="background-color: var(--secondary-blue, #228be6);">
+                                Guardar Autoridad
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -40,7 +40,15 @@ if not SECRET_KEY:
         )
 
 # Carga los hosts permitidos desde entorno, admitiendo dominio e IP del servidor.
-ALLOWED_HOSTS = ['solotech.com.ar', 'www.solotech.com.ar', '192.168.1.51', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['solotech.com.ar', 
+                 'www.solotech.com.ar', 
+                 '192.168.1.51', 
+                 'localhost',
+                 '127.0.0.1',
+                 '0.0.0.0', 
+                'testserver',
+                 'web' 
+]       
 
 
 # Application definition
@@ -57,6 +65,7 @@ INSTALLED_APPS = [
     'news',
     'users',
     'institutos',
+    'institucional',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +91,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'institucional.context_processors.contacto_institucional',
+                'news.context_processors.datos_contacto_global',
             ],
+
         },
     },
 ]
