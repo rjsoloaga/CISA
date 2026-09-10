@@ -25,10 +25,10 @@
                         {% if instituto.logo %}
                             <img src="{{ instituto.logo.url }}" alt="{{ instituto.nombre }}" class="img-fluid" style="height: 100px; object-fit: contain;">
                         {% else %}
-                            <div class="d-flex align-items-center justify-content-center bg-light text-primary rounded border" style="width: 100px; height: 100px; border-color: rgba(116, 192, 252, 0.25) !important;">
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 100px; height: 100px; background-color: #E7F5FF; border: 1px solid #74C0FC;">
                                 <div class="text-center p-2">
-                                    <div class="fs-2 mb-1">🏢</div>
-                                    <strong class="small text-truncate d-block" style="max-width: 80px;">{{ instituto.sigla|default:instituto.nombre }}</strong>
+                                    <i class="bi bi-building fs-2 d-block mb-1" style="color: #228BE6;"></i>
+                                    <strong class="small text-truncate d-block font-serif" style="max-width: 80px; color: #18314F;">{{ instituto.sigla|default:instituto.nombre }}</strong>
                                 </div>
                             </div>
                         {% endif %}
@@ -61,12 +61,12 @@
                             <div class="mt-auto pt-3 border-top">
                                 {% if instituto.pais_origen %}
                                     <div class="d-flex align-items-center gap-1.5 mb-1">
-                                        <small class="text-muted">📍 <strong>Origen:</strong> {{ instituto.pais_origen }}</small>
+                                        <small class="text-muted"><i class="bi bi-geo-alt me-1" style="color: #228BE6;"></i><strong>Origen:</strong> {{ instituto.pais_origen }}</small>
                                     </div>
                                 {% endif %}
                                 {% if instituto.anio_fundacion %}
                                     <div class="d-flex align-items-center gap-1.5">
-                                        <small class="text-muted">📅 <strong>Fundación:</strong> {{ instituto.anio_fundacion }}</small>
+                                        <small class="text-muted"><i class="bi bi-calendar-event me-1" style="color: #228BE6;"></i><strong>Fundación:</strong> {{ instituto.anio_fundacion }}</small>
                                     </div>
                                 {% endif %}
                             </div>
@@ -75,14 +75,18 @@
 
                     <!-- Pie de la Tarjeta -->
                     <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-4 pt-0 px-4">
-                        <a href="{% url 'institutos:instituto_detalle' instituto.pk %}" class="btn btn-sm btn-outline-primary px-3 py-1.5" style="border-radius: 30px; font-weight: 600; font-size: 0.8rem; border-color: var(--secondary-blue); color: var(--secondary-blue);">
+                        <a href="{% url 'institutos:instituto_detalle' instituto.pk %}" class="btn btn-sm btn-outline-primary px-3 py-1.5" style="border-radius: 30px; font-weight: 600; font-size: 0.8rem; border-color: #228BE6; color: #228BE6;">
                             Ver Ficha Completa
                         </a>
                         
                         {% if user.is_staff %}
                             <div class="btn-group">
-                                <a href="{% url 'institutos:instituto_editar' instituto.pk %}" class="btn btn-outline-warning btn-sm border-0 py-0 px-2 fs-5" title="Editar">✏️</a>
-                                <a href="{% url 'institutos:instituto_eliminar' instituto.pk %}" class="btn btn-outline-danger btn-sm border-0 py-0 px-2 fs-5" title="Eliminar">🗑️</a>
+                                <a href="{% url 'institutos:instituto_editar' instituto.pk %}" class="btn btn-light btn-sm border" title="Editar">
+                                    <i class="bi bi-pencil-fill text-warning"></i>
+                                </a>
+                                <a href="{% url 'institutos:instituto_eliminar' instituto.pk %}" class="btn btn-light btn-sm border text-danger" title="Eliminar">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
                             </div>
                         {% endif %}
                     </div>
