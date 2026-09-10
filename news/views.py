@@ -1,3 +1,7 @@
+from core import settings
+from django.core.mail import send_mail
+from django.contrib import messages
+from news.forms import ContactoForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.admin.views.decorators import staff_member_required
 from news.forms import NoticiaForm
@@ -54,14 +58,6 @@ def vista_noticia_detalle(request, pk):
     return render(request, 'news/detalle_noticia.html', {'noticia': noticia})
 
 
-def vista_contacto(request):
-    success = False
-    if request.method == 'POST':
-        # Simulated contact processing
-        success = True
-    return render(request, 'news/contacto.html', {'success': success})
-
-
 def vista_cisa(request):
     return render(request, 'news/cisa.html')
 
@@ -70,3 +66,29 @@ def vista_documentos(request):
     return render(request, 'news/documentos.html')
 
 
+def contacto_view(request):
+    if request.method == 'POST':
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            nombreCompleto = form.cleaned_data.get('nombreCompleto')
+            email_remitente = form.cleaned_data.get('email')
+            asunto = form.cleaned_data.get('asunto')
+            mensaje = form.cleaned_data.get('mensaje')
+
+            cuerpo_mensaje = f"Mensaje recibido de: {nombreCompleto} ({email_remitente})\n\n{mensaje}"
+
+            send_mail(
+                subject=f"[Contacto CISA] {asunto}",
+                message=cuerpo_mensaje,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+
+            messages.success(request, "¡Tu mensaje fue enviado con exito!")
+            
+            return redirect('news:contacto')
+    else:
+        form = ContactoForm()
+    
+    return render(request, 'news/contacto.html', {'form': form})
