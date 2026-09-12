@@ -1,16 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
-from .models import Autoridad
+from .models import Autoridad, Asamblea
 from .forms import AutoridadForm
 
 def es_staff(user):
     return user.is_authenticated and user.is_staff
 
 def detalle_institucional(request):
-    autoridades = Autoridad.objects.all()
+    """Vista pública de Asambleas: convocatorias, informes y comunicados."""
+    proximas  = Asamblea.objects.filter(activo=True, estado='proxima').order_by('-destacada', 'fecha', 'orden')
+    realizadas = Asamblea.objects.filter(activo=True, estado='realizada').order_by('-fecha', 'orden')
+    comunicados = Asamblea.objects.filter(activo=True, estado='cancelada').order_by('-fecha')
+    destacadas = Asamblea.objects.filter(activo=True, destacada=True).order_by('-fecha')[:3]
     return render(request, 'institucional/institucional_detalle.html', {
-        'autoridades': autoridades
+        'proximas':    proximas,
+        'realizadas':  realizadas,
+        'comunicados': comunicados,
+        'destacadas':  destacadas,
     })
 
 @user_passes_test(es_staff)

@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
+from django.conf import settings
 from .forms import NoticiaForm, InformacionContactoForm, RedSocialForm, DatoContactoAdicionalForm
-from .models import news, InformacionContacto, RedSocial, DatoContactoAdicional
+from .models import news, InformacionContacto, RedSocial, DatoContactoAdicional, Documento
 
 
 # ==========================================
@@ -190,29 +191,20 @@ def vista_cisa(request):
 
 
 def vista_documentos(request):
-    return render(request, 'news/documentos.html')
+    """Documentos institucionales agrupados por categoría, gestionados desde el Admin."""
+    qs = Documento.objects.filter(activo=True)
+    context = {
+        'folletos_cisa':      qs.filter(categoria='folletos_cisa'),
+        'documentos_iglesia': qs.filter(categoria='documentos_iglesia'),
+    }
+    return render(request, 'news/documentos.html', context)
 
 @staff_member_required
 def contacto_eliminar_info(request):
     contacto = InformacionContacto.get_solo()
     if request.method == 'POST':
-        # Limpia o restablece a valores por defecto
-        contacto.correo = "contacto@cisa.org.ar"
-        contacto.telefono = ""
-        contacto.direccion = ""
-        contacto.horario_atencion = ""
-        contacto.save()
-        messages.success(request, "Datos de contacto restablecidos a los valores iniciales.")
-        return redirect('news:contacto')
-
-    return render(request, 'news/contacto_confirm_delete.html', {'contacto': contacto})
-
-@staff_member_required
-def contacto_eliminar_info(request):
-    contacto = InformacionContacto.get_solo()
-    if request.method == 'POST':
-        # Limpia o restablece a valores por defecto
-        contacto.correo = "contacto@cisa.org.ar"
+        # Limpia o restablece a valores por defecto (usa el correo definido en settings / .env)
+        contacto.correo = settings.CONTACT_EMAIL_DEFAULT
         contacto.telefono = ""
         contacto.direccion = ""
         contacto.horario_atencion = ""

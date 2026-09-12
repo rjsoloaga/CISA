@@ -3,100 +3,108 @@
 
 {% block content %}
 <div class="container py-5">
-    
+
     <!-- Encabezado de la Página -->
     <div class="d-flex justify-content-between align-items-center mb-5 fade-in">
         <div>
             <h1 class="display-4 fw-extrabold text-dark font-serif mb-1">Institutos Seculares</h1>
             <p class="text-secondary mb-0">Listado de nuestros institutos consagrados y de presencia secular.</p>
         </div>
-        
+
     </div>
     <hr class="opacity-10 mb-5">
 
     <!-- Grilla de Tarjetas -->
     <div class="row g-4 fade-in">
         {% for instituto in institutos %}
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 card-custom d-flex flex-column">
-                    
-                    <!-- Cabecera de la Tarjeta (Logo o Placeholder) -->
-                    <div class="card-header bg-white border-0 text-center pt-4 pb-2 d-flex align-items-center justify-content-center" style="height: 140px; border-top-left-radius: 12px; border-top-right-radius: 12px;">
-                        {% if instituto.logo %}
-                            <img src="{{ instituto.logo.url }}" alt="{{ instituto.nombre }}" class="img-fluid" style="height: 100px; object-fit: contain;">
-                        {% else %}
-                            <div class="d-flex align-items-center justify-content-center bg-light text-primary rounded border" style="width: 100px; height: 100px; border-color: rgba(116, 192, 252, 0.25) !important;">
-                                <div class="text-center p-2">
-                                    <div class="fs-2 mb-1">🏢</div>
-                                    <strong class="small text-truncate d-block" style="max-width: 80px;">{{ instituto.sigla|default:instituto.nombre }}</strong>
-                                </div>
-                            </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 card-custom d-flex flex-column">
+
+                <!-- Cabecera de la Tarjeta: Logo uniforme 160px (object-fit: contain) -->
+                {% if instituto.logo %}
+                <div class="instituto-logo-wrapper">
+                    <img src="{{ instituto.logo.url }}" alt="{{ instituto.nombre }}" class="instituto-logo-img">
+                </div>
+                {% else %}
+                <div class="instituto-logo-placeholder">
+                    <i class="bi bi-building fs-1"></i>
+                    <strong class="small text-center px-2"
+                        style="max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        {{ instituto.sigla|default:instituto.nombre }}
+                    </strong>
+                </div>
+                {% endif %}
+
+                <!-- Cuerpo de la Tarjeta -->
+                <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                    <!-- Título y Sigla -->
+                    <h5 class="card-title font-serif fw-bold text-dark mb-1">
+                        {{ instituto.nombre }}
+                        {% if instituto.sigla %}
+                        ({{ instituto.sigla }})
                         {% endif %}
+                    </h5>
+
+                    <!-- Badge del Tipo de Instituto -->
+                    <div class="mb-3">
+                        <span class="badge bg-info text-dark mb-2 px-2.5 py-1 rounded-pill"
+                            style="font-size: 0.75rem; font-weight: 600;">
+                            {{ instituto.get_tipo_instituto_display }}
+                        </span>
                     </div>
 
-                    <!-- Cuerpo de la Tarjeta -->
-                    <div class="card-body p-4 d-flex flex-column flex-grow-1">
-                        <!-- Título y Sigla -->
-                        <h5 class="card-title font-serif fw-bold text-dark mb-1">
-                            {{ instituto.nombre }}
-                            {% if instituto.sigla %}
-                                ({{ instituto.sigla }})
-                            {% endif %}
-                        </h5>
-                        
-                        <!-- Badge del Tipo de Instituto -->
-                        <div class="mb-3">
-                            <span class="badge bg-info text-dark mb-2 px-2.5 py-1 rounded-pill" style="font-size: 0.75rem; font-weight: 600;">
-                                {{ instituto.get_tipo_instituto_display }}
-                            </span>
+                    <!-- Breve Descripción -->
+                    <p class="card-text text-muted small flex-grow-1 mb-4" style="line-height: 1.6;">
+                        {{ instituto.breve_descripcion|default:"Sin descripción disponible."|truncatewords:20 }}
+                    </p>
+
+                    <!-- Metadatos de Origen/Fundación -->
+                    {% if instituto.pais_origen or instituto.anio_fundacion %}
+                    <div class="mt-auto pt-3 border-top">
+                        {% if instituto.pais_origen %}
+                        <div class="d-flex align-items-center gap-1.5 mb-1">
+                            <small class="text-muted">📍 <strong>Origen:</strong> {{ instituto.pais_origen }}</small>
                         </div>
-                        
-                        <!-- Breve Descripción -->
-                        <p class="card-text text-muted small flex-grow-1 mb-4" style="line-height: 1.6;">
-                            {{ instituto.breve_descripcion|default:"Sin descripción disponible."|truncatewords:20 }}
-                        </p>
-                        
-                        <!-- Metadatos de Origen/Fundación -->
-                        {% if instituto.pais_origen or instituto.anio_fundacion %}
-                            <div class="mt-auto pt-3 border-top">
-                                {% if instituto.pais_origen %}
-                                    <div class="d-flex align-items-center gap-1.5 mb-1">
-                                        <small class="text-muted">📍 <strong>Origen:</strong> {{ instituto.pais_origen }}</small>
-                                    </div>
-                                {% endif %}
-                                {% if instituto.anio_fundacion %}
-                                    <div class="d-flex align-items-center gap-1.5">
-                                        <small class="text-muted">📅 <strong>Fundación:</strong> {{ instituto.anio_fundacion }}</small>
-                                    </div>
-                                {% endif %}
-                            </div>
+                        {% endif %}
+                        {% if instituto.anio_fundacion %}
+                        <div class="d-flex align-items-center gap-1.5">
+                            <small class="text-muted">📅 <strong>Fundación:</strong> {{ instituto.anio_fundacion
+                                }}</small>
+                        </div>
                         {% endif %}
                     </div>
-
-                    <!-- Pie de la Tarjeta -->
-                    <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-4 pt-0 px-4">
-                        <a href="{% url 'institutos:instituto_detalle' instituto.pk %}" class="btn btn-sm btn-outline-primary px-3 py-1.5" style="border-radius: 30px; font-weight: 600; font-size: 0.8rem; border-color: var(--secondary-blue); color: var(--secondary-blue);">
-                            Ver Ficha Completa
-                        </a>
-                        
-                        {% if user.is_staff %}
-                            <div class="btn-group">
-                                <a href="{% url 'institutos:instituto_editar' instituto.pk %}" class="btn btn-outline-warning btn-sm border-0 py-0 px-2 fs-5" title="Editar">✏️</a>
-                                <a href="{% url 'institutos:instituto_eliminar' instituto.pk %}" class="btn btn-outline-danger btn-sm border-0 py-0 px-2 fs-5" title="Eliminar">🗑️</a>
-                            </div>
-                        {% endif %}
-                    </div>
-
+                    {% endif %}
                 </div>
+
+                <!-- Pie de la Tarjeta -->
+                <div
+                    class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-4 pt-0 px-4">
+                    <a href="{% url 'institutos:instituto_detalle' instituto.pk %}"
+                        class="btn btn-sm btn-outline-primary px-3 py-1.5"
+                        style="border-radius: 30px; font-weight: 600; font-size: 0.8rem; border-color: var(--secondary-blue); color: var(--secondary-blue);">
+                        Ver Ficha Completa
+                    </a>
+
+                    {% if user.is_staff %}
+                    <div class="btn-group">
+                        <a href="{% url 'institutos:instituto_editar' instituto.pk %}"
+                            class="btn btn-outline-warning btn-sm border-0 py-0 px-2 fs-5" title="Editar">✏️</a>
+                        <a href="{% url 'institutos:instituto_eliminar' instituto.pk %}"
+                            class="btn btn-outline-danger btn-sm border-0 py-0 px-2 fs-5" title="Eliminar">🗑️</a>
+                    </div>
+                    {% endif %}
+                </div>
+
             </div>
+        </div>
         {% empty %}
-            <div class="col-12 text-center my-5">
-                <div class="glass-panel p-5 text-center bg-white shadow-sm border" style="border-radius: 12px;">
-                    <div class="fs-1 mb-3">🏢</div>
-                    <h4 class="fw-bold text-dark">No hay institutos registrados</h4>
-                    <p class="text-secondary mb-0">Próximamente se listarán los institutos en el sistema.</p>
-                </div>
+        <div class="col-12 text-center my-5">
+            <div class="glass-panel p-5 text-center bg-white shadow-sm border" style="border-radius: 12px;">
+                <div class="fs-1 mb-3">🏢</div>
+                <h4 class="fw-bold text-dark">No hay institutos registrados</h4>
+                <p class="text-secondary mb-0">Próximamente se listarán los institutos en el sistema.</p>
             </div>
+        </div>
         {% endfor %}
     </div>
 

@@ -196,3 +196,10 @@ CSRF_TRUSTED_ORIGINS = [
 
 # Indicarle a Django que reconozca los encabezados HTTPS pasados por Cloudflare
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# ─── Correo institucional de contacto ─────────────────────────────────────────
+# Configurar EMAIL_CONTACT en el .env / docker-compose según si se opera con
+# casilla corporativa (p.ej. contacto@cisa.org.ar) o plataforma de cobro.
+# Ejemplo .env:
+#   EMAIL_CONTACT=contacto@cisa.org.ar
+CONTACT_EMAIL_DEFAULT = os.environ.get('EMAIL_CONTACT', 'contacto@cisa.org.ar')
