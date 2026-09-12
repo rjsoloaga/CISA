@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Carga DEBUG desde la variable de entorno 'DJANGO_DEBUG'. Por defecto es False para seguridad en producción.
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() in ('true', '1', 't', 'yes')
+DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -172,13 +172,18 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Almacenamiento de archivos estáticos con WhiteNoise (compresión y caché de manifiesto)
+# Almacenamiento de archivos estáticos
+if DEBUG:
+    _staticfiles_backend = "django.contrib.staticfiles.storage.StaticFilesStorage"
+else:
+    _staticfiles_backend = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": _staticfiles_backend,
     },
 }
 
