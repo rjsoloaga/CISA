@@ -1,8 +1,15 @@
+from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib import messages
-from django.conf import settings
-from .forms import NoticiaForm, InformacionContactoForm, RedSocialForm, DatoContactoAdicionalForm
+from .forms import (
+    NoticiaForm,
+    ContactoForm,
+    InformacionContactoForm,
+    RedSocialForm,
+    DatoContactoAdicionalForm,
+)
 from .models import news, InformacionContacto, RedSocial, DatoContactoAdicional, Documento
 
 
@@ -69,17 +76,35 @@ def vista_contacto(request):
     contacto = InformacionContacto.get_solo()
     redes = RedSocial.objects.all()
     datos_adicionales = DatoContactoAdicional.objects.all()
-    success = False
 
     if request.method == 'POST':
-        # Procesamiento simulado del envío de formulario de consulta
-        success = True
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            nombreCompleto = form.cleaned_data.get('nombreCompleto')
+            email_remitente = form.cleaned_data.get('email')
+            asunto = form.cleaned_data.get('asunto')
+            mensaje = form.cleaned_data.get('mensaje')
+
+            cuerpo_mensaje = f"Mensaje recibido de: {nombreCompleto} ({email_remitente})\n\n{mensaje}"
+
+            send_mail(
+                subject=f"[Contacto CISA] {asunto}",
+                message=cuerpo_mensaje,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+
+            messages.success(request, "¡Tu mensaje fue enviado con éxito!")
+            return redirect('news:contacto')
+    else:
+        form = ContactoForm()
 
     return render(request, 'news/contacto.html', {
+        'form': form,
         'contacto': contacto,
         'redes': redes,
         'adicionales': datos_adicionales,
-        'success': success,
     })
 
     #-- CRUD Datos Adicionales de Contacto ---
@@ -198,6 +223,7 @@ def vista_documentos(request):
         'documentos_iglesia': qs.filter(categoria='documentos_iglesia'),
     }
     return render(request, 'news/documentos.html', context)
+
 
 @staff_member_required
 def contacto_eliminar_info(request):

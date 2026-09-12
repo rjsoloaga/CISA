@@ -1,5 +1,7 @@
+from django.forms import widgets
 from django import forms
 from .models import  news,InformacionContacto,RedSocial,DatoContactoAdicional
+from .models import DatoContactoAdicional
 
 
 class NoticiaForm(forms.ModelForm):
@@ -17,8 +19,11 @@ class NoticiaForm(forms.ModelForm):
             'hora_evento': forms.TimeInput(attrs={'class': 'form-control form-control-custom', 'type': 'time'}),
         }
 
-
-        
+class ContactoForm(forms.Form):
+    nombreCompleto = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: Juan Perez'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: juanperez@email.com'}))
+    asunto = forms.CharField(max_length=150,widget=forms.TextInput(attrs={'class': 'form-control form-control-custom','placeholder': 'Ej: Solicitar informacion de ...'}))
+    mensaje = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-custom','rows': 4,'placeholder': 'Escriba aqui su mensaje...'}))
 
 class InformacionContactoForm(forms.ModelForm):
     class Meta:
@@ -49,8 +54,6 @@ class RedSocialForm(forms.ModelForm):
             'icono': forms.Select(attrs={'class': 'form-select'}),
             'orden': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '1'}),
         }
-
-        from .models import DatoContactoAdicional
 
 class DatoContactoAdicionalForm(forms.ModelForm):
     class Meta:
