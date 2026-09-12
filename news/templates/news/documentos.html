@@ -1,314 +1,222 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 
+{% block title %}Documentos — CISA{% endblock %}
+
 {% block content %}
 <div class="row justify-content-center fade-in">
     <div class="col-lg-10">
-        
-        <!-- Header Section -->
-        <div class="text-center mb-5">
-            <span class="badge bg-sunrise-gradient text-white mb-2 px-3 py-2 rounded-pill">Descargas y Recursos</span>
-            <h1 class="display-5 fw-extrabold text-sunrise-gradient font-serif">Documentos de CISA</h1>
-            <p class="text-secondary mx-auto" style="max-width: 600px;">
-                Explora, consulta y descarga los documentos oficiales de la Conferencia, textos del Magisterio de la Iglesia y fichas informativas de cada Instituto Secular en Argentina.
+
+        <!-- ── Header ── -->
+        <div class="text-center mb-5 pt-4">
+            <span class="badge px-3 py-2 rounded-pill mb-2"
+                style="background:var(--dark-navy);color:#fff;font-size:0.8rem;letter-spacing:.05em;">
+                Descargas y Recursos
+            </span>
+            <h1 class="display-5 fw-extrabold font-serif" style="color:var(--dark-navy);">Documentos de CISA</h1>
+            <p class="text-secondary mx-auto" style="max-width:600px;">
+                Consulta y descarga los documentos oficiales de la Conferencia, los textos fundamentales
+                del Magisterio de la Iglesia sobre los Institutos Seculares y los folletos de difusión.
             </p>
-            <hr class="opacity-10 mt-4 mb-4">
+            <hr class="opacity-10 mt-4 mb-0">
         </div>
 
-        <!-- Accessible Icon Grid -->
+        <!-- ── Navegación rápida: 2 bloques ── -->
         <div class="row g-4 mb-5">
-            <!-- Grid Card 1: Documentos CISA -->
-            <div class="col-md-4">
-                <a href="#folletos-cisa" class="text-decoration-none text-dark">
+            <div class="col-md-6">
+                <a href="#folletos-cisa" class="text-decoration-none">
                     <div class="doc-category-card">
                         <div class="doc-icon-circle">
                             <i class="bi bi-folder-fill"></i>
                         </div>
-                        <h4 class="font-serif fw-bold text-dark mb-2">Documentos CISA</h4>
+                        <h4 class="font-serif fw-bold text-dark mb-1">Folletos CISA</h4>
                         <p class="small text-secondary mb-0">
-                            Nóminas, memorias oficiales y boletines informativos de nuestra Conferencia.
+                            Nóminas, memorias, folletos y publicaciones propias de la Conferencia.
                         </p>
                     </div>
                 </a>
             </div>
-
-            <!-- Grid Card 2: Documentos de la Iglesia -->
-            <div class="col-md-4">
-                <a href="#documentos-iglesia" class="text-decoration-none text-dark">
+            <div class="col-md-6">
+                <a href="#documentos-iglesia" class="text-decoration-none">
                     <div class="doc-category-card">
                         <div class="doc-icon-circle">
                             <i class="bi bi-book-fill"></i>
                         </div>
-                        <h4 class="font-serif fw-bold text-dark mb-2">Magisterio e Identidad</h4>
+                        <h4 class="font-serif fw-bold text-dark mb-1">Documentos de la Iglesia</h4>
                         <p class="small text-secondary mb-0">
-                            Textos doctrinales de la Iglesia, constituciones apostólicas y reflexiones de la vida consagrada.
+                            Textos fundacionales del Magisterio sobre la identidad de los Institutos Seculares.
                         </p>
                     </div>
                 </a>
             </div>
+        </div>
 
-            <!-- Grid Card 3: Fichas de los Institutos -->
-            <div class="col-md-4">
-                <a href="#fichas-institutos" class="text-decoration-none text-dark">
-                    <div class="doc-category-card">
-                        <div class="doc-icon-circle">
-                            <i class="bi bi-file-earmark-person-fill"></i>
+        <!-- ══════════════════════════════════════════════════
+             BLOQUE 1 — FOLLETOS CISA
+        ══════════════════════════════════════════════════ -->
+        <section class="my-5 pt-2" id="folletos-cisa">
+            <h2 class="font-serif border-bottom pb-3 mb-4 d-flex align-items-center gap-2"
+                style="color:var(--dark-navy);">
+                <span style="color:var(--secondary-blue);"><i class="bi bi-folder2-open"></i></span>
+                Folletos CISA
+            </h2>
+
+            {% if folletos_cisa %}
+            <div class="row g-3">
+                {% for doc in folletos_cisa %}
+                <div class="col-md-6">
+                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                {% if doc.formato == 'pdf' %}
+                                <span class="doc-badge-format doc-badge-pdf">PDF</span>
+                                {% elif doc.formato == 'docx' %}
+                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
+                                {% else %}
+                                <span class="doc-badge-format" style="background:#6c757d;">ENLACE</span>
+                                {% endif %}
+                                <h5 class="fw-bold mb-0 text-dark">{{ doc.titulo }}</h5>
+                            </div>
+                            {% if doc.subtitulo %}
+                            <p class="small text-primary fw-semibold mb-1">{{ doc.subtitulo }}</p>
+                            {% endif %}
+                            {% if doc.referencia %}
+                            <p class="small text-muted mb-1">
+                                <i class="bi bi-calendar3 me-1"></i>{{ doc.referencia }}
+                            </p>
+                            {% endif %}
+                            {% if doc.descripcion %}
+                            <p class="small text-secondary mb-0">{{ doc.descripcion }}</p>
+                            {% endif %}
                         </div>
-                        <h4 class="font-serif fw-bold text-dark mb-2">Fichas de Institutos</h4>
-                        <p class="small text-secondary mb-0">
-                            Datos particulares, actas constitutivas, fundadores y carisma de los institutos en Argentina.
-                        </p>
+                        <div class="text-end">
+                            {% if doc.link_descarga %}
+                            <a href="{{ doc.link_descarga }}" class="btn btn-primary btn-sm px-4 rounded-pill"
+                                target="_blank" rel="noopener noreferrer"
+                                style="background:var(--dark-navy);border-color:var(--dark-navy);">
+                                <i class="bi bi-download me-1"></i> Descargar
+                            </a>
+                            {% else %}
+                            <span class="btn btn-outline-secondary btn-sm px-4 rounded-pill disabled">
+                                <i class="bi bi-hourglass-split me-1"></i> Próximamente
+                            </span>
+                            {% endif %}
+                        </div>
                     </div>
-                </a>
+                </div>
+                {% endfor %}
             </div>
-        </div>
-
-        <!-- Section 1: Documentos CISA -->
-        <div class="my-5 pt-3" id="folletos-cisa">
-            <h3 class="font-serif text-dark border-bottom pb-3 mb-4 d-flex align-items-center gap-2">
-                <span class="text-primary"><i class="bi bi-folder2-open"></i></span>
-                Documentos y Publicaciones de CISA
-            </h3>
-
-            <!-- Nómina -->
-            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                <div>
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                        <h5 class="fw-bold mb-0 text-dark">Nómina de Institutos Seculares en Argentina</h5>
-                    </div>
-                    <p class="small text-secondary mb-0">
-                        Listado oficial de todos los institutos adheridos y participantes en la Conferencia de Argentina.
-                    </p>
-                </div>
-                <div>
-                    <a href="/media/documentos/NOMINA_DE_INSTITUTOS_SECULARES.docx" class="btn btn-outline-sunrise px-4 py-2" download>
-                        <i class="bi bi-download me-1"></i> Descargar
-                    </a>
-                </div>
+            {% else %}
+            <div class="text-center py-5 text-muted border rounded-3"
+                style="background:var(--light-blue-bg,#E7F5FF);border-color:rgba(116,192,252,.4)!important;">
+                <i class="bi bi-folder2 display-4 d-block mb-3 opacity-40"></i>
+                <p class="mb-1 fw-semibold">No hay folletos publicados aún.</p>
+                <small>El administrador puede cargarlos desde el panel de administración.</small>
             </div>
+            {% endif %}
+        </section>
 
-            <!-- Memoria JISA -->
-            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                <div>
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="doc-badge-format doc-badge-pdf">PDF</span>
-                        <h5 class="fw-bold mb-0 text-dark">Memoria JISA - CISA</h5>
-                    </div>
-                    <p class="small text-secondary mb-0">
-                        Resumen histórico, actas e hitos de las Jornadas de los Institutos Seculares de Argentina.
-                    </p>
-                </div>
-                <div>
-                    <a href="/media/documentos/MEMORIA_DE_JISA_-_CISA.pdf" class="btn btn-outline-sunrise px-4 py-2" download>
-                        <i class="bi bi-download me-1"></i> Descargar
-                    </a>
-                </div>
-            </div>
-
-            <!-- Noticiero JISA -->
-            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                <div>
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="doc-badge-format doc-badge-doc">DOC</span>
-                        <h5 class="fw-bold mb-0 text-dark">Noticiero Especial Aniversario JISA</h5>
-                    </div>
-                    <p class="small text-secondary mb-0">
-                        Boletín informativo y testimonios recogidos en la edición de aniversario de las jornadas.
-                    </p>
-                </div>
-                <div>
-                    <a href="/media/documentos/Noticiero_JISA_ANIVERSARIO.doc" class="btn btn-outline-sunrise px-4 py-2" download>
-                        <i class="bi bi-download me-1"></i> Descargar
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 2: Magisterio e Identidad -->
-        <div class="my-5 pt-3" id="documentos-iglesia">
-            <h3 class="font-serif text-dark border-bottom pb-3 mb-4 d-flex align-items-center gap-2">
-                <span class="text-primary"><i class="bi bi-book"></i></span>
-                Documentos del Magisterio de la Iglesia
-            </h3>
-
-            <!-- Identidad, Camino y Presencia -->
-            <div class="doc-item-card d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                <div>
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                        <h5 class="fw-bold mb-0 text-dark">Identidad, Camino y Presencia en Argentina</h5>
-                    </div>
-                    <p class="small text-secondary mb-0">
-                        Estudio doctrinal detallado sobre la consagración secular y la evolución eclesial de esta vocación.
-                    </p>
-                </div>
-                <div>
-                    <a href="/media/documentos/IDENTIDAD_-_CAMINO_-_Y_PRESENCIA_EN_ARGENTINA.docx" class="btn btn-outline-sunrise px-4 py-2" download>
-                        <i class="bi bi-download me-1"></i> Descargar
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 3: Fichas de los Institutos -->
-        <div class="my-5 pt-3 mb-5" id="fichas-institutos">
-            <h3 class="font-serif text-dark border-bottom pb-3 mb-4 d-flex align-items-center gap-2">
-                <span class="text-primary"><i class="bi bi-file-earmark-spreadsheet"></i></span>
-                Fichas y Datos de los Institutos Seculares
-            </h3>
-            
-            <p class="text-secondary small mb-4">
-                Colección de fichas informativas individuales de los institutos seculares con presencia en Argentina:
+        <!-- ══════════════════════════════════════════════════
+             BLOQUE 2 — DOCUMENTOS DE LA IGLESIA
+             Estructura al estilo CEDIS: tarjetas con título
+             oficial, subtítulo doctrinal, referencia y CTA.
+        ══════════════════════════════════════════════════ -->
+        <section class="my-5 pt-2" id="documentos-iglesia">
+            <h2 class="font-serif border-bottom pb-3 mb-2 d-flex align-items-center gap-2"
+                style="color:var(--dark-navy);">
+                <span style="color:var(--secondary-blue);"><i class="bi bi-book-half"></i></span>
+                Documentos de la Iglesia
+            </h2>
+            <p class="text-secondary mb-4" style="max-width:680px;">
+                Textos pontificios y conciliares que definen la identidad canónica y espiritual de los
+                Institutos Seculares. Son el fundamento doctrinal de nuestra vida y misión.
             </p>
 
-            <div class="row g-3">
-                <!-- Cristífero -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Instituto Secular Cristífero</h6>
+            {% if documentos_iglesia %}
+            <!-- Tarjetas estilo CEDIS -->
+            <div class="row g-4">
+                {% for doc in documentos_iglesia %}
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm" style="border-radius:14px;overflow:hidden;">
+                        <div class="row g-0">
+                            <!-- Banda lateral de color -->
+                            <div class="col-auto d-none d-md-flex align-items-center justify-content-center px-3"
+                                style="background:var(--dark-navy);min-width:56px;">
+                                <i class="bi bi-file-earmark-text-fill text-white fs-4"></i>
                             </div>
-                            <p class="small text-secondary mb-0">Ficha informativa: origen, carisma y misión en la sociedad.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Instituto_Secular_Cristifero_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                            <!-- Contenido -->
+                            <div class="col">
+                                <div class="card-body py-3 px-4">
+                                    <div
+                                        class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+                                        <div>
+                                            <!-- Referencia canónica / año -->
+                                            {% if doc.referencia %}
+                                            <span class="badge mb-2"
+                                                style="background:rgba(34,139,230,.12);color:var(--secondary-blue);font-weight:600;font-size:.75rem;">
+                                                <i class="bi bi-bookmark-fill me-1"></i>{{ doc.referencia }}
+                                            </span>
+                                            {% endif %}
 
-                <!-- Misioneras de Jesucristo Sacerdote -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Misioneras de Jesucristo Sacerdote</h6>
-                            </div>
-                            <p class="small text-secondary mb-0">Datos históricos y carisma de consagración fundado por Mons. Eduardo Pironio.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Misioneras_de_Jesucristo_Sacerdote_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                                            <!-- Título oficial -->
+                                            <h4 class="font-serif fw-bold mb-1"
+                                                style="color:var(--dark-navy);font-size:1.1rem;">
+                                                {{ doc.titulo }}
+                                            </h4>
 
-                <!-- Siervas de Dios Misericordia -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Siervas de Dios Misericordia</h6>
-                            </div>
-                            <p class="small text-secondary mb-0">Ficha técnica del instituto, datos de contacto y sedes en Argentina.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Siervas_de_Dios_Misericordia_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                                            <!-- Subtítulo / contexto doctrinal -->
+                                            {% if doc.subtitulo %}
+                                            <p class="text-secondary mb-1" style="font-size:.9rem;">
+                                                {{ doc.subtitulo }}
+                                            </p>
+                                            {% endif %}
 
-                <!-- Realeza de Cristo -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Misioneras de la Realeza de Cristo</h6>
-                            </div>
-                            <p class="small text-secondary mb-0">Documentación de la rama femenina del instituto en el país.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Misioneras_de_la_Realeza_de_Cristo_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                                            <!-- Descripción breve -->
+                                            {% if doc.descripcion %}
+                                            <p class="small text-muted mb-0" style="max-width:620px;">
+                                                {{ doc.descripcion }}
+                                            </p>
+                                            {% endif %}
+                                        </div>
 
-                <!-- Hijas de la Natividad de Maria -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Hijas de la Natividad de María</h6>
+                                        <!-- Botón de descarga / enlace -->
+                                        <div class="flex-shrink-0">
+                                            {% if doc.link_descarga %}
+                                            <a href="{{ doc.link_descarga }}"
+                                                class="btn btn-sm px-4 py-2 rounded-pill fw-semibold" target="_blank"
+                                                rel="noopener noreferrer"
+                                                style="background:var(--dark-navy);color:#fff;white-space:nowrap;">
+                                                <i class="bi bi-download me-1"></i>
+                                                {% if doc.formato == 'enlace' %}Leer en línea{% else %}Descargar{% endif %}
+                                            </a>
+                                            {% else %}
+                                            <span
+                                                class="btn btn-sm btn-outline-secondary px-4 py-2 rounded-pill disabled"
+                                                style="white-space:nowrap;">
+                                                <i class="bi bi-hourglass-split me-1"></i> Próximamente
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <p class="small text-secondary mb-0">Presencia pastoral y datos institucionales en Argentina.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Hijas_de_la_Natividad_de_Maria_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Oblatas Diocesanas -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Oblatas Diocesanas</h6>
-                            </div>
-                            <p class="small text-secondary mb-0">Ficha histórica y carisma de consagración diocesana femenina.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Oblatas_Diocesanas_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Schoenstatt Hermanas de Maria -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Hermanas de María de Schoenstatt</h6>
-                            </div>
-                            <p class="small text-secondary mb-0">Datos e historia de inserción de Schoenstatt en Argentina.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Hermanas_de_Maria_de_Schoenstatt_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Voluntarios con Don Bosco -->
-                <div class="col-md-6">
-                    <div class="doc-item-card h-100 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="doc-badge-format doc-badge-docx">DOCX</span>
-                                <h6 class="fw-bold mb-0 text-dark">Voluntarios Con Don Bosco</h6>
-                            </div>
-                            <p class="small text-secondary mb-0">Presencia, historia y notas de carisma de la rama salesiana laical.</p>
-                        </div>
-                        <div class="text-end">
-                            <a href="/media/documentos/Voluntarios_Con_Don_Bosco_-_Datos.docx" class="btn btn-outline-sunrise btn-sm px-3" download>
-                                <i class="bi bi-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-        </div>
 
-    </div>
-</div>
+            {% else %}
+            <!-- Estado vacío elegante (se ve hasta que el admin cargue el fixture) -->
+            <div class="text-center py-5 text-muted border rounded-3"
+                style="background:var(--light-blue-bg,#E7F5FF);border-color:rgba(116,192,252,.4)!important;">
+                <i class="bi bi-book display-4 d-block mb-3 opacity-40"></i>
+                <p class="mb-1 fw-semibold">Los documentos del Magisterio se están cargando.</p>
+                <small>Volvé pronto o contactá al administrador del sitio.</small>
+            </div>
+            {% endif %}
+        </section>
+
+    </div><!-- /col-lg-10 -->
+</div><!-- /row -->
 {% endblock %}
