@@ -39,27 +39,18 @@ class AsambleaAdmin(admin.ModelAdmin):
     date_hierarchy = 'fecha'
 
     fieldsets = (
-        ('📋 Información de la Asamblea', {
-            'fields': ('tipo', 'estado', 'titulo', 'fecha', 'lugar', 'descripcion'),
-            'description': (
-                'Complete el tipo (Convocatoria, Informe o Comunicado), el estado actual, '
-                'el título oficial, la fecha y el lugar o modalidad de la asamblea.'
-            ),
+        ('📋 Información Principal', {
+            'fields': ('titulo', 'fecha', 'descripcion'),
+            'description': 'Campos indispensables para la carga de la asamblea o comunicado.',
         }),
         ('📎 Documentación adjunta', {
-            'fields': ('archivo', 'url_externa'),
-            'classes': ('collapse',),
-            'description': (
-                'Adjunte el documento PDF de convocatoria o acta, O ingrese una URL externa. '
-                'No es necesario completar ambos campos.'
-            ),
+            'fields': ('archivo',),
+            'description': 'Ayuda: Adjunte el documento en formato PDF.',
         }),
-        ('⚙️ Configuración de Visualización', {
-            'fields': ('destacada', 'activo', 'orden'),
-            'description': (
-                '"Destacada" muestra la asamblea en posición prioritaria. '
-                '"Visible en el sitio" controla si aparece públicamente.'
-            ),
+        ('⚙️ Opciones Avanzadas', {
+            'fields': ('tipo', 'estado', 'lugar', 'url_externa', 'destacada', 'activo'),
+            'classes': ('collapse',),
+            'description': 'Metadatos adicionales y configuración de visualización.',
         }),
     )
 

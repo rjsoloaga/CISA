@@ -8,7 +8,7 @@ from .models import news, InformacionContacto, RedSocial, DatoContactoAdicional,
 # ══════════════════════════════════════════════════════════
 
 @admin.register(news)
-class NoticiaAdmin(admin.ModelAdmin):
+class ComunicadoAdmin(admin.ModelAdmin):
     list_display   = ('titulo', 'fecha', 'fecha_evento', 'ubicacion')
     list_filter    = ('fecha', 'fecha_evento')
     search_fields  = ('titulo', 'resumen', 'cuerpo', 'ubicacion')
@@ -16,14 +16,14 @@ class NoticiaAdmin(admin.ModelAdmin):
     date_hierarchy = 'fecha'
 
     fieldsets = (
-        ('📝 Contenido de la Noticia', {
+        ('📝 Contenido del Comunicado', {
             'fields': ('titulo', 'resumen', 'cuerpo', 'imagen'),
-            'description': 'Escriba el título, el resumen (texto breve) y el contenido completo de la noticia. La imagen es opcional.',
+            'description': 'Escriba el título, el resumen (texto breve) y el contenido completo del comunicado. La imagen es opcional.',
         }),
         ('📅 Datos del Evento (opcional)', {
             'fields': ('fecha_evento', 'hora_evento', 'ubicacion'),
             'classes': ('collapse',),
-            'description': 'Complete esta sección solo si la noticia hace referencia a un evento con fecha y lugar específicos.',
+            'description': 'Complete esta sección solo si el comunicado hace referencia a un evento con fecha y lugar específicos.',
         }),
     )
 

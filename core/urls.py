@@ -9,6 +9,10 @@ from django.conf import settings
 from django.views.static import serve
 
 
+admin.site.site_header = "Administración CISA"
+admin.site.site_title = "Panel CISA"
+admin.site.index_title = "Gestión de Contenidos Institucionales"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('news.urls')),
