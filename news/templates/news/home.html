@@ -273,14 +273,14 @@
     <!-- Actividades y Novedades Grid -->
     <div class="row mt-5" id="noticias">
         <div class="col-12 mb-4">
-            <h2 class="font-serif text-dark mb-2">Más Actividades y Novedades</h2>
+            <h2 class="font-serif text-dark mb-2">Últimas Noticias</h2>
             <p class="text-secondary fs-6">Explora todo lo que está sucediendo en nuestros institutos y comunidades.</p>
             <hr class="opacity-10">
         </div>
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 fade-in">
-        {% for noticia in noticias|slice:"5:" %}
+        {% for noticia in noticias %}
         <div class="col">
             <div class="card-custom h-100 d-flex flex-column">
                 {% if noticia.imagen %}
