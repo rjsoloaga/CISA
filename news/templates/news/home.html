@@ -20,54 +20,68 @@
                     aria-label="Diapositiva 2"></button>
                 <button type="button" data-bs-target="#heroCarouselCISA" data-bs-slide-to="2"
                     aria-label="Diapositiva 3"></button>
+                <button type="button" data-bs-target="#heroCarouselCISA" data-bs-slide-to="3"
+                    aria-label="Diapositiva 4"></button>
             </div>
 
             <div class="carousel-inner">
 
-                <!-- ── SLIDE 1: Trabajo en equipo ── -->
+                <!-- ── SLIDE 1: Comunión y Camino de la Consagración Secular ── -->
                 <div class="carousel-item active">
                     <img src="{% static 'img/hero/slide1.jpeg' %}" class="hero-carousel-bg"
-                        alt="Equipo de trabajo institucional en reunión">
+                        alt="Conferencia de Institutos Seculares de Argentina">
                     <div class="hero-carousel-overlay"></div>
                     <div class="carousel-caption">
-                        <span class="hero-badge">Conferencia de Institutos Seculares</span>
-                        <h2 class="font-serif">Construyendo Comunidad,<br>Integrando Personas</h2>
-                        <p>Un espacio de encuentro, diálogo y trabajo compartido donde cada
-                            institución aporta su carisma en beneficio de la sociedad argentina.</p>
+                        <span class="hero-badge">CISA</span>
+                        <h2 class="font-serif">Conferencia de Institutos Seculares de Argentina</h2>
+                        <p>Animando la Comunión y el Camino de la Consagración Secular</p>
                         <a href="{% url 'news:cisa' %}" class="btn-hero">
                             Conocer CISA &rarr;
                         </a>
                     </div>
                 </div>
 
-                <!-- ── SLIDE 2: Naturaleza / Paisaje ── -->
+                <!-- ── SLIDE 2: Sal y Levadura en el Mundo ── -->
                 <div class="carousel-item">
                     <img src="{% static 'img/hero/slide2.jpeg' %}" class="hero-carousel-bg"
-                        alt="Paisaje natural de Argentina, Patagonia">
+                        alt="Institutos Seculares - Sal y levadura en el mundo">
                     <div class="hero-carousel-overlay"></div>
                     <div class="carousel-caption">
-                        <span class="hero-badge">Presencia en todo el país</span>
-                        <h2 class="font-serif">Raíces Profundas<br>en la Argentina</h2>
-                        <p>Institutos seculares con presencia activa en distintas provincias,
-                            comprometidos con el desarrollo humano integral de sus comunidades.</p>
+                        <span class="hero-badge">Vocación y Misión</span>
+                        <h2 class="font-serif">Institutos Seculares</h2>
+                        <p>Consagrados para ser sal y levadura en el mundo</p>
                         <a href="{% url 'institutos:listar' %}" class="btn-hero">
                             Ver Institutos &rarr;
                         </a>
                     </div>
                 </div>
 
-                <!-- ── SLIDE 3: Comunidad ── -->
+                <!-- ── SLIDE 3: Moldeados por Dios ── -->
                 <div class="carousel-item">
                     <img src="{% static 'img/hero/slide3.jpeg' %}" class="hero-carousel-bg"
-                        alt="Actividad comunitaria en espacio público">
+                        alt="Institutos Seculares - Moldeados por Dios, enviados al corazón del mundo">
                     <div class="hero-carousel-overlay"></div>
                     <div class="carousel-caption">
-                        <span class="hero-badge">Próximas Asambleas</span>
-                        <h2 class="font-serif">Participación<br>y Encuentro</h2>
-                        <p>Acompañá los encuentros, jornadas y asambleas de CISA donde
-                            se construyen acuerdos y se traza el camino conjunto.</p>
+                        <span class="hero-badge">Enviados al Mundo</span>
+                        <h2 class="font-serif">Institutos Seculares</h2>
+                        <p>Moldeados por Dios, enviados al corazón del mundo.</p>
                         <a href="{% url 'detalle_institucional' %}" class="btn-hero">
                             Ver Asambleas &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ── SLIDE 4: Calles del Mundo ── -->
+                <div class="carousel-item">
+                    <img src="{% static 'img/hero/slide4.jpeg' %}" class="hero-carousel-bg"
+                        alt="Institutos Seculares - Tras las huellas de Cristo, en las calles del mundo">
+                    <div class="hero-carousel-overlay"></div>
+                    <div class="carousel-caption">
+                        <span class="hero-badge">Testimonio Secular</span>
+                        <h2 class="font-serif">Institutos Seculares</h2>
+                        <p>Tras las huellas de Cristo, en las calles del mundo.</p>
+                        <a href="{% url 'news:noticias_listar' %}" class="btn-hero">
+                            Ver Novedades &rarr;
                         </a>
                     </div>
                 </div>
