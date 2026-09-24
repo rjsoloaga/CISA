@@ -280,40 +280,44 @@
         <div class="col">
             <div class="card-custom h-100 d-flex flex-column">
                 {% if noticia.imagen %}
-                <img src="{{ noticia.imagen.url }}" class="card-img-top object-fit-cover" alt="{{ noticia.titulo }}"
-                    style="height: 180px;">
+                <img src="{{ noticia.imagen.url }}" class="card-img-top" alt="{{ noticia.titulo }}"
+                    style="height: 200px; width: 100%; object-fit: cover; border-top-left-radius: 16px; border-top-right-radius: 16px;">
                 {% else %}
-                <div class="bg-sunrise-gradient text-white d-flex align-items-center justify-content-center"
-                    style="height: 180px;">
-                    <span class="fs-4 opacity-50">CISA</span>
+                <div class="bg-sunrise-gradient text-white d-flex align-items-center justify-content-center card-img-top"
+                    style="height: 200px; width: 100%; border-top-left-radius: 16px; border-top-right-radius: 16px;">
+                    <span class="fs-2 opacity-50 font-serif">CISA</span>
                 </div>
                 {% endif %}
 
-                <div class="card-body d-flex flex-column p-4">
+                <div class="card-body d-flex flex-column flex-grow-1 p-4" style="flex-grow: 1; display: flex; flex-direction: column;">
                     <h5 class="card-title fw-bold text-dark mb-2">{{ noticia.titulo }}</h5>
-                    <p class="card-text text-secondary small mb-3">{{ noticia.resumen|truncatechars:100 }}</p>
+                    <p class="card-text text-secondary small mb-3">{{ noticia.resumen|truncatechars:120 }}</p>
 
                     <div class="mt-auto">
-                        <div class="d-flex flex-wrap gap-2 mb-3">
+                        <div class="d-flex flex-wrap gap-2 mb-3" style="min-height: 28px;">
                             {% if noticia.ubicacion %}
-                            <span class="meta-badge text-truncate" style="max-width: 150px;">
+                            <span class="meta-badge text-truncate" style="max-width: 100%;">
                                 <i class="bi bi-geo-alt-fill me-1" style="color: #228BE6;"></i>{{ noticia.ubicacion }}
                             </span>
                             {% endif %}
-
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                        <div class="d-flex justify-content-between align-items-center gap-2 border-top pt-3">
                             <a href="{% url 'news:noticias_detalle' noticia.pk %}"
-                                class="btn btn-outline-sunrise btn-sm w-100 text-center">Leer Más</a>
+                                class="btn btn-outline-sunrise btn-sm px-3 py-1.5 flex-grow-1 text-center"
+                                style="font-size: 0.85rem;">Leer Más</a>
                             {% if user.is_staff %}
-                            <div class="btn-group ms-2">
+                            <div class="d-flex align-items-center gap-1">
                                 <a href="{% url 'news:noticias_editar' noticia.pk %}"
-                                    class="btn btn-light btn-sm border" title="Editar">
+                                    class="btn btn-light btn-sm border d-inline-flex align-items-center justify-content-center"
+                                    title="Editar"
+                                    style="width: 32px; height: 32px; border-radius: 8px;">
                                     <i class="bi bi-pencil-fill text-warning"></i>
                                 </a>
                                 <a href="{% url 'news:noticias_eliminar' noticia.pk %}"
-                                    class="btn btn-light btn-sm border text-danger" title="Eliminar">
+                                    class="btn btn-light btn-sm border text-danger d-inline-flex align-items-center justify-content-center"
+                                    title="Eliminar"
+                                    style="width: 32px; height: 32px; border-radius: 8px;">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
                             </div>
