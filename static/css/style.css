@@ -977,12 +977,15 @@ html {
     position: absolute;
     inset: 0;
     background: linear-gradient(160deg,
-            rgba(24, 49, 79, 0.72) 0%,
+            rgba(24, 49, 79, 0.75) 0%,
             /* --dark-navy */
-            rgba(34, 139, 230, 0.42) 60%,
+            rgba(34, 139, 230, 0.45) 50%,
             /* --secondary-blue */
-            rgba(116, 192, 252, 0.18) 100%
-            /* --primary-celeste */
+            rgba(15, 32, 53, 0.55) 100%
+        ),
+        linear-gradient(to top,
+            rgba(15, 32, 53, 0.75) 0%,
+            transparent 60%
         );
     z-index: 1;
 }
@@ -994,7 +997,7 @@ html {
     left: 8%;
     right: 8%;
     text-align: left;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
 
 .hero-carousel-wrapper .carousel-caption .hero-badge {
@@ -1019,14 +1022,16 @@ html {
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 0.75rem;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
 }
 
 .hero-carousel-wrapper .carousel-caption p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
-    max-width: 560px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    max-width: 600px;
     margin-bottom: 1.25rem;
     line-height: 1.6;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 }
 
 .hero-carousel-wrapper .carousel-caption .btn-hero {

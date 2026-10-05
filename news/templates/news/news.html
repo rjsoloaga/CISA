@@ -20,50 +20,58 @@
     <div class="row g-4 fade-in">
         {% for noticia in noticias %}
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm border-0 card-custom">
+            <div class="card-custom h-100 d-flex flex-column">
                 <!-- Contenedor de Imagen -->
                 {% if noticia.imagen %}
                 <img src="{{ noticia.imagen.url }}" class="card-img-top" alt="{{ noticia.titulo }}"
-                    style="height: 200px; object-fit: cover; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                    style="height: 200px; width: 100%; object-fit: cover; border-top-left-radius: 16px; border-top-right-radius: 16px;">
                 {% else %}
                 <div class="bg-sunrise-gradient text-white d-flex align-items-center justify-content-center card-img-top"
-                    style="height: 200px; border-top-left-radius: 12px; border-top-right-radius: 12px;">
-                    <span class="fs-2 opacity-40 font-serif">CISA</span>
+                    style="height: 200px; width: 100%; border-top-left-radius: 16px; border-top-right-radius: 16px;">
+                    <span class="fs-2 opacity-50 font-serif">CISA</span>
                 </div>
                 {% endif %}
 
                 <!-- Cuerpo de la Tarjeta -->
-                <div class="card-body d-flex flex-column p-4">
+                <div class="card-body d-flex flex-column flex-grow-1 p-4" style="flex-grow: 1; display: flex; flex-direction: column;">
                     <h5 class="card-title font-serif fw-bold text-dark mb-2">{{ noticia.titulo }}</h5>
-                    <p class="card-text text-muted small flex-grow-1 mb-4">{{ noticia.resumen|truncatechars:120 }}</p>
+                    <p class="card-text text-secondary small mb-3">{{ noticia.resumen|truncatechars:120 }}</p>
 
-                    <div class="d-flex flex-wrap gap-2 mt-auto">
-                        {% if noticia.ubicacion %}
-                        <span class="meta-badge py-1 px-2.5" style="font-size: 0.75rem;">
-                            📍 {{ noticia.ubicacion }}
-                        </span>
-                        {% endif %}
-                        <span class="meta-badge py-1 px-2.5" style="font-size: 0.75rem;">
-                            📅 {% if noticia.fecha_evento %}{{ noticia.fecha_evento|date:"d/m/Y" }}{% else %}{{
-                            noticia.fecha|date:"d/m/Y" }}{% endif %}
-                        </span>
+                    <!-- Pie de la Tarjeta -->
+                    <div class="mt-auto">
+                        <div class="d-flex flex-wrap gap-2 mb-3" style="min-height: 28px;">
+                            {% if noticia.ubicacion %}
+                            <span class="meta-badge text-truncate" style="max-width: 140px;">
+                                <i class="bi bi-geo-alt-fill me-1" style="color: #228BE6;"></i>{{ noticia.ubicacion }}
+                            </span>
+                            {% endif %}
+                            <span class="meta-badge">
+                                <i class="bi bi-calendar3 me-1" style="color: #228BE6;"></i>{% if noticia.fecha_evento %}{{ noticia.fecha_evento|date:"d/m/Y" }}{% else %}{{ noticia.fecha|date:"d/m/Y" }}{% endif %}
+                            </span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center gap-2 border-top pt-3">
+                            <a href="{% url 'news:noticias_detalle' noticia.pk %}"
+                                class="btn btn-outline-sunrise btn-sm px-3 py-1.5 flex-grow-1 text-center"
+                                style="font-size: 0.85rem;">Leer Más</a>
+                            {% if user.is_staff %}
+                            <div class="d-flex align-items-center gap-1">
+                                <a href="{% url 'news:noticias_editar' noticia.pk %}"
+                                    class="btn btn-light btn-sm border d-inline-flex align-items-center justify-content-center"
+                                    title="Editar"
+                                    style="width: 32px; height: 32px; border-radius: 8px;">
+                                    <i class="bi bi-pencil-fill text-warning"></i>
+                                </a>
+                                <a href="{% url 'news:noticias_eliminar' noticia.pk %}"
+                                    class="btn btn-light btn-sm border text-danger d-inline-flex align-items-center justify-content-center"
+                                    title="Eliminar"
+                                    style="width: 32px; height: 32px; border-radius: 8px;">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-
-                <!-- Pie de la Tarjeta -->
-                <div
-                    class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-4 pt-0 px-4">
-                    <a href="{% url 'news:noticias_detalle' noticia.pk %}" class="btn btn-primary btn-sm px-3 py-1.5"
-                        style="font-size: 0.85rem;">Leer Artículo</a>
-
-                    {% if user.is_staff %}
-                    <div class="btn-group">
-                        <a href="{% url 'news:noticias_editar' noticia.pk %}"
-                            class="btn btn-outline-warning btn-sm border-0 py-0 px-2 fs-5" title="Editar">✏️</a>
-                        <a href="{% url 'news:noticias_eliminar' noticia.pk %}"
-                            class="btn btn-outline-danger btn-sm border-0 py-0 px-2 fs-5" title="Eliminar">🗑️</a>
-                    </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
